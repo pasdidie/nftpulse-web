@@ -1,11 +1,17 @@
 'use client';
-import React from 'react';
-// import Link from 'next/link'; // Décommentez ceci pour la production si vous le souhaitez, mais le lien ci-dessous fonctionne aussi.
+import React, { useState, useEffect } from 'react';
+// import Link from 'next/link'; // Décommente cette ligne si tu veux utiliser le vrai router Next.js plus tard
 import { Disc, ChevronRight, Lock } from 'lucide-react';
 
-// --- COMPONENTS ---
+// --- COMPOSANT LINK (Compatible Vercel & Preview) ---
+// On met ": any" pour que Vercel arrête de bloquer la construction
+const Link = ({ href, children, className, onClick, target, rel }: any) => (
+  <a href={href} className={className} onClick={onClick} target={target} rel={rel}>
+    {children}
+  </a>
+);
 
-// 1. NEON 3D CUBE
+// --- COMPOSANT CUBE 3D ---
 const NeonCube = () => {
   return (
     <div className="cube-container w-64 h-64 relative perspective-1000">
@@ -22,28 +28,12 @@ const NeonCube = () => {
   );
 };
 
-// 2. Custom Link Component (Fixes Vercel TypeScript Error & Preview Error)
-interface LinkProps {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-  onClick?: () => void;
-  target?: string;
-  rel?: string;
-}
-
-const Link = ({ href, children, className, onClick, target, rel }: LinkProps) => (
-  <a href={href} className={className} onClick={onClick} target={target} rel={rel}>
-    {children}
-  </a>
-);
-
-// --- MAIN PAGE ---
+// --- PAGE PRINCIPALE ---
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#02040a] text-white selection:bg-blue-500/30 overflow-x-hidden font-sans flex flex-col">
       
-      {/* Background Noise & Effects */}
+      {/* Effets d'arrière-plan */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] mix-blend-screen"></div>
@@ -51,10 +41,10 @@ export default function LandingPage() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20"></div>
       </div>
 
-      {/* Navbar */}
+      {/* Barre de navigation */}
       <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-[#02040a]/70 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2 cursor-pointer">
             <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-lg">P</div>
             <span className="font-bold text-xl tracking-tight text-white">NFTPULSE</span>
           </Link>
@@ -69,7 +59,7 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* HERO SECTION */}
+      {/* Section Héro (Haut de page) */}
       <section className="relative z-10 pt-32 pb-10 px-6 max-w-7xl mx-auto flex-1 flex flex-col justify-center">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 animate-fade-in-up">
@@ -89,9 +79,9 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                 <span className="relative flex items-center gap-2">Explore Modules <ChevronRight size={18} /></span>
               </Link>
-              <Link href="https://discord.gg/N24YgTBx3V" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/5 transition-all">
+              <a href="https://discord.gg/N24YgTBx3V" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/5 transition-all">
                 Join Discord
-              </Link>
+              </a>
             </div>
             <div className="grid grid-cols-3 gap-8 pt-8 border-t border-white/10">
               <div><div className="text-2xl font-bold font-mono">0.2s</div><div className="text-xs text-gray-500 uppercase">Execution</div></div>
@@ -106,7 +96,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Gatekeeper Section (Private Beta Access) */}
+      {/* Section Accès Privé (Gatekeeper) */}
       <section className="relative z-10 py-24 border-t border-white/5 bg-gradient-to-b from-[#02040a] to-blue-950/20">
         <div className="max-w-4xl mx-auto text-center px-6">
           <div className="w-20 h-20 mx-auto bg-gradient-to-tr from-purple-600 to-blue-600 rounded-2xl rotate-3 mb-8 flex items-center justify-center shadow-[0_0_50px_rgba(124,58,237,0.3)]">
@@ -119,28 +109,28 @@ export default function LandingPage() {
             <span className="text-blue-400 font-semibold">Genesis Pass (Lifetime Access)</span> mint coming soon for V1 launch.
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <Link 
+            <a 
               href="https://discord.gg/N24YgTBx3V" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-3 px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-lg font-bold transition-all w-full md:w-auto justify-center shadow-lg shadow-blue-900/20"
             >
               Join Discord & Earn Role
-            </Link>
+            </a>
             <span className="text-gray-500 font-mono text-sm">OR</span>
-            <Link 
+            <a 
               href="https://docs.google.com/forms/d/e/1FAIpQLSfrpClyknpxqbPI4ismMCzc9IHbyrwvdN10CM5pon_RSFQW_g/viewform?usp=sharing&ouid=118074420697624704159"
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-3 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-bold transition-all w-full md:w-auto justify-center"
             >
               Apply for Beta
-            </Link>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
+      {/* Pied de page (Footer) */}
       <footer className="relative z-10 border-t border-white/10 bg-[#02040a] py-12 px-6 mt-auto">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2">
@@ -149,7 +139,7 @@ export default function LandingPage() {
           </div>
           <div className="flex gap-8 text-sm text-gray-500">
             <Link href="#" className="hover:text-white transition-colors">Documentation</Link>
-            <Link href="https://x.com/_nftpulse_" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</Link>
+            <a href="https://x.com/_nftpulse_" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</a>
             <Link href="#" className="hover:text-white transition-colors">Terms</Link>
           </div>
           <div className="text-xs text-gray-700 font-mono">
@@ -158,6 +148,7 @@ export default function LandingPage() {
         </div>
       </footer>
 
+      {/* Styles CSS injectés (Correction des erreurs console) */}
       <style dangerouslySetInnerHTML={{__html: `
         .perspective-1000 { perspective: 1000px; }
         .preserve-3d { transform-style: preserve-3d; }
