@@ -1,14 +1,7 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-// import Link from 'next/link'; // Utilisez ceci dans votre VS Code
+import React from 'react';
+// import Link from 'next/link'; // Décommentez ceci pour la production si vous le souhaitez, mais le lien ci-dessous fonctionne aussi.
 import { Disc, ChevronRight, Lock } from 'lucide-react';
-
-// Mock Link pour la prévisualisation
-const Link = ({ href, children, className, onClick }) => (
-  <a href={href} className={className} onClick={onClick}>
-    {children}
-  </a>
-);
 
 // --- COMPONENTS ---
 
@@ -29,6 +22,22 @@ const NeonCube = () => {
   );
 };
 
+// 2. Custom Link Component (Fixes Vercel TypeScript Error & Preview Error)
+interface LinkProps {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+  target?: string;
+  rel?: string;
+}
+
+const Link = ({ href, children, className, onClick, target, rel }: LinkProps) => (
+  <a href={href} className={className} onClick={onClick} target={target} rel={rel}>
+    {children}
+  </a>
+);
+
 // --- MAIN PAGE ---
 export default function LandingPage() {
   return (
@@ -45,7 +54,7 @@ export default function LandingPage() {
       {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-[#02040a]/70 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 cursor-pointer">
+          <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center font-bold text-lg">P</div>
             <span className="font-bold text-xl tracking-tight text-white">NFTPULSE</span>
           </Link>
@@ -80,14 +89,14 @@ export default function LandingPage() {
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                 <span className="relative flex items-center gap-2">Explore Modules <ChevronRight size={18} /></span>
               </Link>
-              <a href="https://discord.gg/N24YgTBx3V" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/5 transition-all">
+              <Link href="https://discord.gg/N24YgTBx3V" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/5 transition-all">
                 Join Discord
-              </a>
+              </Link>
             </div>
             <div className="grid grid-cols-3 gap-8 pt-8 border-t border-white/10">
               <div><div className="text-2xl font-bold font-mono">0.2s</div><div className="text-xs text-gray-500 uppercase">Execution</div></div>
               <div><div className="text-2xl font-bold font-mono text-emerald-400">99.9%</div><div className="text-xs text-gray-500 uppercase">Success Rate</div></div>
-              
+              <div><div className="text-2xl font-bold font-mono">$42M+</div><div className="text-xs text-gray-500 uppercase">Volume Secured</div></div>
             </div>
           </div>
           <div className="relative flex items-center justify-center h-[500px] perspective-1000 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
@@ -110,23 +119,23 @@ export default function LandingPage() {
             <span className="text-blue-400 font-semibold">Genesis Pass (Lifetime Access)</span> mint coming soon for V1 launch.
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <a 
+            <Link 
               href="https://discord.gg/N24YgTBx3V" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-3 px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-lg font-bold transition-all w-full md:w-auto justify-center shadow-lg shadow-blue-900/20"
             >
               Join Discord & Earn Role
-            </a>
+            </Link>
             <span className="text-gray-500 font-mono text-sm">OR</span>
-            <a 
+            <Link 
               href="https://docs.google.com/forms/d/e/1FAIpQLSfrpClyknpxqbPI4ismMCzc9IHbyrwvdN10CM5pon_RSFQW_g/viewform?usp=sharing&ouid=118074420697624704159"
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-3 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-bold transition-all w-full md:w-auto justify-center"
             >
               Apply for Beta
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -139,9 +148,9 @@ export default function LandingPage() {
             <span className="font-bold tracking-tight text-gray-300">NFTPULSE SYSTEM</span>
           </div>
           <div className="flex gap-8 text-sm text-gray-500">
-            <a href="#" className="hover:text-white transition-colors">Documentation</a>
-            <a href="https://x.com/_nftpulse_" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</a>
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
+            <Link href="#" className="hover:text-white transition-colors">Documentation</Link>
+            <Link href="https://x.com/_nftpulse_" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</Link>
+            <Link href="#" className="hover:text-white transition-colors">Terms</Link>
           </div>
           <div className="text-xs text-gray-700 font-mono">
             SYSTEM STATUS: <span className="text-green-500">OPERATIONAL</span>
