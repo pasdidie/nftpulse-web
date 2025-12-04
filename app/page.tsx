@@ -2,15 +2,24 @@
 import React from 'react';
 import { Disc, ChevronRight, Lock } from 'lucide-react';
 
-// --- COMPOSANT LIEN SIMPLE (Anti-Bug Vercel) ---
-// On utilise une balise <a> standard pour éviter tout conflit de type ou de compilation
-const Link = ({ href, children, className, onClick, target, rel }) => (
+// --- CORRECTION TYPE SCRIPT ---
+// On définit exactement ce que le lien attend pour que Vercel ne bloque pas
+interface CustomLinkProps {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+  target?: string;
+  rel?: string;
+}
+
+const Link = ({ href, children, className, onClick, target, rel }: CustomLinkProps) => (
   <a href={href} className={className} onClick={onClick} target={target} rel={rel}>
     {children}
   </a>
 );
 
-// --- COMPOSANT CUBE 3D (CSS Pur) ---
+// --- COMPOSANT CUBE 3D ---
 const NeonCube = () => {
   return (
     <div className="cube-container w-64 h-64 relative perspective-1000">
@@ -58,7 +67,7 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* Section Héro (Haut de page) */}
+      {/* Section Héro */}
       <section className="relative z-10 pt-32 pb-10 px-6 max-w-7xl mx-auto flex-1 flex flex-col justify-center">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           
