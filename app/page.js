@@ -1,14 +1,16 @@
 'use client';
 import React from 'react';
-// On garde le Link custom pour éviter les erreurs de build Vercel si next/link fait des siennes
-// C'est du Javascript pur maintenant, aucune syntaxe "any"
+import { Disc, ChevronRight, Lock } from 'lucide-react';
+
+// --- COMPOSANT LIEN SIMPLE (Anti-Bug Vercel) ---
+// On utilise une balise <a> standard pour éviter tout conflit de type ou de compilation
 const Link = ({ href, children, className, onClick, target, rel }) => (
   <a href={href} className={className} onClick={onClick} target={target} rel={rel}>
     {children}
   </a>
 );
 
-// --- COMPOSANT CUBE 3D ---
+// --- COMPOSANT CUBE 3D (CSS Pur) ---
 const NeonCube = () => {
   return (
     <div className="cube-container w-64 h-64 relative perspective-1000">
@@ -24,10 +26,6 @@ const NeonCube = () => {
     </div>
   );
 };
-
-// --- ICONS (Lucide) ---
-// On importe les icônes nécessaires
-import { Disc, ChevronRight, Lock } from 'lucide-react';
 
 // --- PAGE PRINCIPALE ---
 export default function LandingPage() {
@@ -63,37 +61,65 @@ export default function LandingPage() {
       {/* Section Héro (Haut de page) */}
       <section className="relative z-10 pt-32 pb-10 px-6 max-w-7xl mx-auto flex-1 flex flex-col justify-center">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
+          
+          {/* Contenu Gauche */}
           <div className="space-y-8 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-500/30 text-blue-400 text-xs font-medium uppercase tracking-widest mb-4">
               <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
               Beta Access Live
             </div>
+            
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">
               DOMINATE THE <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 animate-gradient-x">MEMPOOL</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 animate-gradient-x">
+                MEMPOOL
+              </span>
             </h1>
+            
             <p className="text-lg text-gray-400 max-w-xl leading-relaxed">
-              The fastest automated minting infrastructure. Zero latency. Institutional-grade security. Stop competing. Start dominating.
+              The fastest automated minting infrastructure. Zero latency. 
+              Institutional-grade security. Stop competing. Start dominating.
             </p>
+            
             <div className="flex flex-wrap items-center gap-4 pt-4">
               <Link href="/features" className="group relative px-8 py-4 bg-blue-600 text-white font-bold rounded-lg overflow-hidden transition-all hover:scale-105">
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                <span className="relative flex items-center gap-2">Explore Modules <ChevronRight size={18} /></span>
+                <span className="relative flex items-center gap-2">
+                  Explore Modules <ChevronRight size={18} />
+                </span>
               </Link>
-              <a href="https://discord.gg/N24YgTBx3V" target="_blank" rel="noopener noreferrer" className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/5 transition-all">
+              <Link 
+                href="https://discord.gg/N24YgTBx3V" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium rounded-lg hover:bg-white/5 transition-all"
+              >
                 Join Discord
-              </a>
+              </Link>
             </div>
+
             <div className="grid grid-cols-3 gap-8 pt-8 border-t border-white/10">
-              <div><div className="text-2xl font-bold font-mono">0.2s</div><div className="text-xs text-gray-500 uppercase">Execution</div></div>
-              <div><div className="text-2xl font-bold font-mono text-emerald-400">99.9%</div><div className="text-xs text-gray-500 uppercase">Success Rate</div></div>
-              <div><div className="text-2xl font-bold font-mono">$42M+</div><div className="text-xs text-gray-500 uppercase">Volume Secured</div></div>
+              <div>
+                <div className="text-2xl font-bold font-mono">0.2s</div>
+                <div className="text-xs text-gray-500 uppercase">Execution</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold font-mono text-emerald-400">99.9%</div>
+                <div className="text-xs text-gray-500 uppercase">Success Rate</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold font-mono">$42M+</div>
+                <div className="text-xs text-gray-500 uppercase">Volume Secured</div>
+              </div>
             </div>
           </div>
+
+          {/* Contenu Droite (Cube) */}
           <div className="relative flex items-center justify-center h-[500px] perspective-1000 animate-fade-in-up" style={{ animationDelay: '200ms' }}>
             <div className="absolute inset-0 bg-blue-500/10 blur-[100px] rounded-full"></div>
             <NeonCube />
           </div>
+
         </div>
       </section>
 
@@ -110,28 +136,28 @@ export default function LandingPage() {
             <span className="text-blue-400 font-semibold">Genesis Pass (Lifetime Access)</span> mint coming soon for V1 launch.
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <a 
+            <Link 
               href="https://discord.gg/N24YgTBx3V" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-3 px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-lg font-bold transition-all w-full md:w-auto justify-center shadow-lg shadow-blue-900/20"
             >
               Join Discord & Earn Role
-            </a>
+            </Link>
             <span className="text-gray-500 font-mono text-sm">OR</span>
-            <a 
+            <Link 
               href="https://docs.google.com/forms/d/e/1FAIpQLSfrpClyknpxqbPI4ismMCzc9IHbyrwvdN10CM5pon_RSFQW_g/viewform?usp=sharing&ouid=118074420697624704159"
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center gap-3 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-bold transition-all w-full md:w-auto justify-center"
             >
               Apply for Beta
-            </a>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Pied de page (Footer) */}
+      {/* Footer */}
       <footer className="relative z-10 border-t border-white/10 bg-[#02040a] py-12 px-6 mt-auto">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2">
@@ -140,7 +166,7 @@ export default function LandingPage() {
           </div>
           <div className="flex gap-8 text-sm text-gray-500">
             <Link href="#" className="hover:text-white transition-colors">Documentation</Link>
-            <a href="https://x.com/_nftpulse_" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</a>
+            <Link href="https://x.com/_nftpulse_" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</Link>
             <Link href="#" className="hover:text-white transition-colors">Terms</Link>
           </div>
           <div className="text-xs text-gray-700 font-mono">
@@ -149,7 +175,7 @@ export default function LandingPage() {
         </div>
       </footer>
 
-      {/* Styles CSS injectés (Correction des erreurs console) */}
+      {/* Styles CSS globaux pour l'animation */}
       <style dangerouslySetInnerHTML={{__html: `
         .perspective-1000 { perspective: 1000px; }
         .preserve-3d { transform-style: preserve-3d; }
