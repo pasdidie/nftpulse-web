@@ -4,7 +4,7 @@
 
 import React, { ReactNode, MouseEventHandler } from 'react';
 import { Disc, ChevronRight, Lock } from 'lucide-react';
-
+import Link from 'next/link';
 // --- TYPES POUR LE LIEN ---
 interface CustomLinkProps {
   href: string;
