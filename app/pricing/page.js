@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 // import Link from 'next/link'; // Utilisez ceci dans votre VS Code
-import { Disc, Key, CheckCircle2, XCircle, Zap, Shield } from 'lucide-react';
+import { Disc, Key, CheckCircle2, XCircle, Shield } from 'lucide-react';
 
 // Mock Link pour la prévisualisation
 const Link = ({ href, children, className }) => <a href={href} className={className}>{children}</a>;

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 // import Link from 'next/link'; // Utilisez ceci dans votre VS Code
-import { Terminal, Shield, Zap, Database, Crosshair, Lock, Disc, Activity, FlaskConical, GitBranch } from 'lucide-react';
+import { Shield, Zap, Database, Crosshair, Lock, Disc, Activity, FlaskConical } from 'lucide-react';
 
 // Mock Link pour la prévisualisation
 const Link = ({ href, children, className }) => <a href={href} className={className}>{children}</a>;
@@ -110,7 +110,7 @@ export default function FeaturesPage() {
                 Explore the tactical suite designed to give you an unfair advantage. 
                 <br />
                 <span className="text-purple-400 text-sm font-mono mt-2 inline-block">
-                  [!] MULTIPLE EXPERIMENTAL MODULES CURRENTLY IN R&D
+                  [!] MULTIPLE EXPERIMENTAL MODULES CURRENTLY IN R&amp;D
                 </span>
             </p>
         </div>
@@ -168,7 +168,7 @@ export default function FeaturesPage() {
              </div>
           </BentoCard>
 
-          {/* R&D Card - Added */}
+          {/* R&D Card */}
           <BentoCard 
             title="Labs / In Development" 
             subtitle="More modules are being forged in the dark. Expect frequent updates."

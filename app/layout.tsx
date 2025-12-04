@@ -1,17 +1,17 @@
 import React from 'react';
-// import './globals.css'; // Décommentez cette ligne dans votre projet local VS Code
-// import { Inter } from 'next/font/google'; // Décommentez pour la police Google dans VS Code
+import type { Metadata } from 'next';
+// import './globals.css'; // Décommente dans ton projet local si tu as ce fichier
+// import { Inter } from 'next/font/google'; // À utiliser en local si tu veux la police Inter
 
-// Configuration de la police (Simulée pour la preview, utilisez Inter dans VS Code)
 // const inter = Inter({ subsets: ['latin'] });
-const inter = { className: 'font-sans' }; // Fallback pour la preview
+const inter = { className: 'font-sans' }; // Fallback simple
 
-// Configuration SEO
-export const metadata = {
+export const metadata: Metadata = {
   title: 'NFTPulse | Dominate the Mempool',
-  description: 'The fastest automated NFT minting infrastructure. Zero latency. Institutional-grade security.',
+  description:
+    'The fastest automated NFT minting infrastructure. Zero latency. Institutional-grade security.',
   icons: {
-    icon: '/favicon.ico', 
+    icon: '/favicon.ico',
   },
 };
 
@@ -22,7 +22,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* On applique la couleur de fond sombre directement ici */}
       <body className={`${inter.className} bg-[#02040a] text-white antialiased`}>
         {children}
       </body>
