@@ -1,11 +1,8 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-// import Link from 'next/link'; // Décommente cette ligne si tu veux utiliser le vrai router Next.js plus tard
-import { Disc, ChevronRight, Lock } from 'lucide-react';
-
-// --- COMPOSANT LINK (Compatible Vercel & Preview) ---
-// On met ": any" pour que Vercel arrête de bloquer la construction
-const Link = ({ href, children, className, onClick, target, rel }: any) => (
+import React from 'react';
+// On garde le Link custom pour éviter les erreurs de build Vercel si next/link fait des siennes
+// C'est du Javascript pur maintenant, aucune syntaxe "any"
+const Link = ({ href, children, className, onClick, target, rel }) => (
   <a href={href} className={className} onClick={onClick} target={target} rel={rel}>
     {children}
   </a>
@@ -27,6 +24,10 @@ const NeonCube = () => {
     </div>
   );
 };
+
+// --- ICONS (Lucide) ---
+// On importe les icônes nécessaires
+import { Disc, ChevronRight, Lock } from 'lucide-react';
 
 // --- PAGE PRINCIPALE ---
 export default function LandingPage() {
