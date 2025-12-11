@@ -1,18 +1,18 @@
 'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import { Disc, ChevronRight, Lock } from 'lucide-react';
 
 // --- INTERFACE TYPESCRIPT ---
-// Indispensable pour éviter l'erreur "implicit any" sur Vercel
-interface CustomLinkProps {
+type CustomLinkProps = {
   href: string;
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
   target?: string;
   rel?: string;
-}
+};
 
 // --- COMPOSANT LINK ---
 const Link = ({ href, children, className, onClick, target, rel }: CustomLinkProps) => (
@@ -22,17 +22,19 @@ const Link = ({ href, children, className, onClick, target, rel }: CustomLinkPro
 );
 
 // --- COMPOSANT CUBE 3D ---
-const NeonCube = () => {
+const NeonCube: React.FC = () => {
+  const faces = ['front', 'back', 'right', 'left', 'top', 'bottom'] as const;
+
   return (
     <div className="cube-container w-64 h-64 relative perspective-1000">
       <div className="cube w-full h-full relative preserve-3d animate-spin-slow">
-        {['front', 'back', 'right', 'left', 'top', 'bottom'].map((face) => (
+        {faces.map((face) => (
           <div
             key={face}
             className={`absolute w-full h-full border-2 border-blue-500/50 bg-blue-900/10 backdrop-blur-sm box-shadow-neon flex items-center justify-center transform-style-3d face-${face}`}
           >
             <div className="w-16 h-16 border border-purple-500/30 rounded-full animate-pulse relative">
-              <div className="absolute inset-0 bg-purple-500/20 blur-xl rounded-full"></div>
+              <div className="absolute inset-0 bg-purple-500/20 blur-xl rounded-full" />
             </div>
           </div>
         ))}
@@ -42,15 +44,15 @@ const NeonCube = () => {
 };
 
 // --- PAGE PRINCIPALE ---
-export default function LandingPage() {
+const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#02040a] text-white selection:bg-blue-500/30 overflow-x-hidden font-sans flex flex-col">
       {/* Effets d'arrière-plan */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] mix-blend-screen"></div>
-        <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-purple-600/10 rounded-full blur-[100px] mix-blend-screen"></div>
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20"></div>
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] mix-blend-screen" />
+        <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-purple-600/10 rounded-full blur-[100px] mix-blend-screen" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20" />
       </div>
 
       {/* Barre de navigation */}
@@ -89,7 +91,7 @@ export default function LandingPage() {
           {/* Contenu Gauche */}
           <div className="space-y-8 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-500/30 text-blue-400 text-xs font-medium uppercase tracking-widest mb-4">
-              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
               Beta Access Live
             </div>
 
@@ -101,8 +103,8 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-lg text-gray-400 max-w-xl leading-relaxed">
-              The fastest automated minting infrastructure. Zero latency. Institutional-grade
-              security. Stop competing. Start dominating.
+              The fastest automated minting infrastructure. Zero latency.
+              Institutional-grade security. Stop competing. Start dominating.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-4">
@@ -110,7 +112,7 @@ export default function LandingPage() {
                 href="/features"
                 className="group relative px-8 py-4 bg-blue-600 text-white font-bold rounded-lg overflow-hidden transition-all hover:scale-105"
               >
-                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 <span className="relative flex items-center gap-2">
                   Explore Modules <ChevronRight size={18} />
                 </span>
@@ -146,13 +148,13 @@ export default function LandingPage() {
             className="relative flex items-center justify-center h-[500px] perspective-1000 animate-fade-in-up"
             style={{ animationDelay: '200ms' }}
           >
-            <div className="absolute inset-0 bg-blue-500/10 blur-[100px] rounded-full"></div>
+            <div className="absolute inset-0 bg-blue-500/10 blur-[100px] rounded-full" />
             <NeonCube />
           </div>
         </div>
       </section>
 
-      {/* Section Accès Privé (Gatekeeper) */}
+      {/* Section Accès Privé */}
       <section className="relative z-10 py-24 border-t border-white/5 bg-gradient-to-b from-[#02040a] to-blue-950/20">
         <div className="max-w-4xl mx-auto text-center px-6">
           <div className="w-20 h-20 mx-auto bg-gradient-to-tr from-purple-600 to-blue-600 rounded-2xl rotate-3 mb-8 flex items-center justify-center shadow-[0_0_50px_rgba(124,58,237,0.3)]">
@@ -164,10 +166,8 @@ export default function LandingPage() {
             active contribution in our Discord or via application.
             <br />
             <br />
-            <span className="text-blue-400 font-semibold">
-              Genesis Pass (Lifetime Access)
-            </span>{' '}
-            mint coming soon for V1 launch.
+            <span className="text-blue-400 font-semibold">Genesis Pass (Lifetime Access)</span> mint
+            coming soon for V1 launch.
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
             <Link
@@ -176,7 +176,7 @@ export default function LandingPage() {
               rel="noopener noreferrer"
               className="flex items-center gap-3 px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-lg font-bold transition-all w-full md:w-auto justify-center shadow-lg shadow-blue-900/20"
             >
-              Join Discord & Earn Role
+              Join Discord &amp; Earn Role
             </Link>
             <span className="text-gray-500 font-mono text-sm">OR</span>
             <Link
@@ -216,7 +216,7 @@ export default function LandingPage() {
             >
               Twitter
             </Link>
-            <Link href="#" className="hover:text-white transition-colors">
+            <Link href="/terms" className="hover:text-white transition-colors">
               Terms
             </Link>
           </div>
@@ -250,4 +250,6 @@ export default function LandingPage() {
       />
     </div>
   );
-}
+};
+
+export default LandingPage;
