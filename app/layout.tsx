@@ -1,28 +1,16 @@
-import React from 'react';
-import type { Metadata } from 'next';
-// import './globals.css'; // Décommente dans ton projet local si tu as ce fichier
-// import { Inter } from 'next/font/google'; // À utiliser en local si tu veux la police Inter
+// app/layout.tsx
+import './globals.css';
+import type { ReactNode } from 'react';
 
-// const inter = Inter({ subsets: ['latin'] });
-const inter = { className: 'font-sans' }; // Fallback simple
-
-export const metadata: Metadata = {
-  title: 'NFTPulse | Dominate the Mempool',
-  description:
-    'The fastest automated NFT minting infrastructure. Zero latency. Institutional-grade security.',
-  icons: {
-    icon: '/favicon.ico',
-  },
+export const metadata = {
+  title: 'NFTPulse',
+  description: 'Mint infra',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-[#02040a] text-white antialiased`}>
+      <body className="bg-[#02040a] text-white">
         {children}
       </body>
     </html>
