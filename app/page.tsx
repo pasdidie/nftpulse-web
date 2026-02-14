@@ -1,8 +1,53 @@
 'use client';
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { ChevronRight, Lock, ExternalLink } from 'lucide-react';
+
+// --- COMPOSANT MATRIX RAIN ---
+const MatrixRain: React.FC = () => {
+  const columns = useMemo(() => {
+    const cols = [];
+    for (let i = 0; i < 60; i++) {
+      const chars = [];
+      const charCount = 15 + Math.floor(Math.random() * 20);
+      for (let j = 0; j < charCount; j++) {
+        chars.push(Math.random() > 0.5 ? String(Math.floor(Math.random() * 2)) : String.fromCharCode(0x30A0 + Math.floor(Math.random() * 96)));
+      }
+      cols.push({
+        left: (i / 60) * 100,
+        duration: 4 + Math.random() * 8,
+        delay: Math.random() * -12,
+        opacity: 0.15 + Math.random() * 0.35,
+        fontSize: 10 + Math.floor(Math.random() * 6),
+        chars,
+      });
+    }
+    return cols;
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {columns.map((col, i) => (
+        <div
+          key={i}
+          className="absolute top-0 matrix-column font-mono text-green-400 whitespace-pre leading-tight"
+          style={{
+            left: `${col.left}%`,
+            animationDuration: `${col.duration}s`,
+            animationDelay: `${col.delay}s`,
+            opacity: col.opacity,
+            fontSize: `${col.fontSize}px`,
+          }}
+        >
+          {col.chars.map((char, j) => (
+            <div key={j} style={{ opacity: 1 - j * (0.7 / col.chars.length) }}>{char}</div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 // --- INTERFACE TYPESCRIPT ---
 type CustomLinkProps = {
@@ -188,20 +233,6 @@ const LandingPage: React.FC = () => {
               </Link>
             </div>
 
-            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-green-500/10">
-              <div>
-                <div className="text-2xl font-bold font-mono text-white">0.2s</div>
-                <div className="text-xs text-gray-600 uppercase tracking-wider">Execution</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold font-mono text-green-400">99.9%</div>
-                <div className="text-xs text-gray-600 uppercase tracking-wider">Success Rate</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold font-mono text-white">$42M+</div>
-                <div className="text-xs text-gray-600 uppercase tracking-wider">Volume Secured</div>
-              </div>
-            </div>
           </div>
 
           {/* Contenu Droite (Cube interactif) */}
@@ -215,10 +246,17 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Section Accès Privé */}
-      <section className="relative z-10 py-24 border-t border-green-500/10 bg-gradient-to-b from-[#020a02] to-green-950/20">
-        <div className="max-w-4xl mx-auto text-center px-6">
-          <div className="w-20 h-20 mx-auto bg-gradient-to-tr from-cyan-600 to-green-500 rounded-2xl rotate-3 mb-8 flex items-center justify-center shadow-[0_0_50px_rgba(0,255,65,0.2)]">
+      {/* Section Accès Privé - Matrix Rain Background */}
+      <section className="relative z-10 py-24 border-t border-green-500/10 overflow-hidden">
+        {/* Matrix rain background */}
+        <div className="absolute inset-0 bg-[#010800]" />
+        <MatrixRain />
+        {/* Gradient overlays for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020a02] via-transparent to-[#020a02]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.4)_0%,transparent_70%)]" />
+
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
+          <div className="w-20 h-20 mx-auto bg-gradient-to-tr from-cyan-600 to-green-500 rounded-2xl rotate-3 mb-8 flex items-center justify-center shadow-[0_0_50px_rgba(0,255,65,0.3)]">
             <Lock className="text-black" size={40} />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Private Beta Access</h2>
@@ -312,6 +350,13 @@ const LandingPage: React.FC = () => {
             rgba(0, 255, 65, 0.03) 2px,
             rgba(0, 255, 65, 0.03) 4px
           );
+        }
+        @keyframes matrix-fall {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(calc(100vh + 100%)); }
+        }
+        .matrix-column {
+          animation: matrix-fall linear infinite;
         }
       `,
         }}
