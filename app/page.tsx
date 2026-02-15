@@ -51,7 +51,7 @@ const MatrixRain: React.FC = () => {
 
 // --- BLACK HOLE CURSOR ---
 const BlackHoleCursor: React.FC = () => {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
+  const [pos, setPos] = useState({ x: -200, y: -200 });
 
   useEffect(() => {
     const handler = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
@@ -60,36 +60,88 @@ const BlackHoleCursor: React.FC = () => {
   }, []);
 
   return (
-    <div
-      className="fixed pointer-events-none z-[9999]"
-      style={{
-        left: pos.x - 60,
-        top: pos.y - 60,
-        width: 120,
-        height: 120,
-        background: 'radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 30%, rgba(0,255,65,0.05) 50%, transparent 70%)',
-        borderRadius: '50%',
-        filter: 'blur(1px)',
-        mixBlendMode: 'multiply',
-      }}
-    >
+    <>
+      <svg className="fixed" width="0" height="0" style={{ position: 'absolute' }}>
+        <defs>
+          <filter id="blackhole-distort">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" seed="2" result="turbulence">
+              <animate attributeName="seed" from="0" to="100" dur="8s" repeatCount="indefinite" />
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="18" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
       <div
-        className="absolute inset-0 rounded-full"
+        className="fixed pointer-events-none z-[9999] rounded-full"
         style={{
-          background: 'radial-gradient(circle, transparent 20%, transparent 40%, rgba(0,255,65,0.08) 50%, transparent 60%)',
-          animation: 'blackhole-spin 3s linear infinite',
+          left: pos.x - 50,
+          top: pos.y - 50,
+          width: 100,
+          height: 100,
+          backdropFilter: 'url(#blackhole-distort)',
+          WebkitBackdropFilter: 'url(#blackhole-distort)',
         }}
-      />
-    </div>
+      >
+        <div
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: 'radial-gradient(circle, transparent 30%, rgba(0,255,65,0.06) 55%, rgba(0,255,65,0.03) 70%, transparent 80%)',
+            animation: 'blackhole-spin 4s linear infinite',
+          }}
+        />
+        <div
+          className="absolute inset-2 rounded-full"
+          style={{
+            border: '1px solid rgba(0,255,65,0.08)',
+            animation: 'blackhole-spin 6s linear infinite reverse',
+          }}
+        />
+      </div>
+    </>
   );
 };
 
+// --- CHAIN LOGOS ---
+const EthLogo = () => (
+  <svg width="18" height="18" viewBox="0 0 256 417" fill="none">
+    <path d="M127.961 0l-2.795 9.5v275.668l2.795 2.79 127.962-75.638z" fill="#687AE5"/>
+    <path d="M127.962 0L0 212.32l127.962 75.639V154.158z" fill="#8C9FEF"/>
+    <path d="M127.961 312.187l-1.575 1.92V414.45l1.575 4.6L256 236.587z" fill="#687AE5"/>
+    <path d="M127.962 419.05V312.187L0 236.587z" fill="#8C9FEF"/>
+    <path d="M127.961 287.958l127.96-75.637-127.96-58.162z" fill="#4F5FB5"/>
+    <path d="M0 212.32l127.96 75.639V154.158z" fill="#687AE5"/>
+  </svg>
+);
+
+const MegaEthLogo = () => (
+  <svg width="18" height="18" viewBox="0 0 100 100" fill="none">
+    <circle cx="50" cy="50" r="48" stroke="#FF6B35" strokeWidth="4"/>
+    <path d="M35 65L50 20L65 65L50 50Z" fill="#FF6B35"/>
+    <path d="M50 50L35 65H65Z" fill="#FFB088"/>
+  </svg>
+);
+
+const BaseLogo = () => (
+  <svg width="18" height="18" viewBox="0 0 111 111" fill="none">
+    <circle cx="55.5" cy="55.5" r="55.5" fill="#0052FF"/>
+    <path d="M55.5 94C76.763 94 94 76.763 94 55.5S76.763 17 55.5 17C35.294 17 18.743 32.578 17.093 52.353H67.5v6.294H17.093C18.743 78.422 35.294 94 55.5 94z" fill="white"/>
+  </svg>
+);
+
+const AbstractLogo = () => (
+  <svg width="18" height="18" viewBox="0 0 100 100" fill="none">
+    <rect x="4" y="4" width="92" height="92" rx="20" stroke="#8B5CF6" strokeWidth="6"/>
+    <circle cx="38" cy="50" r="12" fill="#8B5CF6"/>
+    <circle cx="62" cy="50" r="12" stroke="#8B5CF6" strokeWidth="5" fill="none"/>
+  </svg>
+);
+
 // --- SYSTEM STATUS POPUP ---
 const networks = [
-  { name: 'ETH Mainnet', icon: '⟠', color: 'text-blue-400', ping: '12ms' },
-  { name: 'MegaETH Mainnet', icon: '⚡', color: 'text-yellow-400', ping: '8ms' },
-  { name: 'Base Mainnet', icon: '🔵', color: 'text-blue-300', ping: '15ms' },
-  { name: 'Abstract Mainnet', icon: '◆', color: 'text-purple-400', ping: '11ms' },
+  { name: 'ETH Mainnet', logo: <EthLogo />, ping: '12ms' },
+  { name: 'MegaETH Mainnet', logo: <MegaEthLogo />, ping: '8ms' },
+  { name: 'Base Mainnet', logo: <BaseLogo />, ping: '15ms' },
+  { name: 'Abstract Mainnet', logo: <AbstractLogo />, ping: '11ms' },
 ];
 
 const SystemStatus: React.FC = () => {
@@ -127,7 +179,7 @@ const SystemStatus: React.FC = () => {
           <div className="space-y-3">
             {networks.map((net, i) => (
               <div key={i} className="flex items-center gap-3">
-                <span className="text-sm">{net.icon}</span>
+                <div className="w-5 h-5 flex items-center justify-center shrink-0">{net.logo}</div>
                 <div className="flex-1">
                   <div className="text-xs font-medium text-white">{net.name}</div>
                   <div className="flex items-center gap-1.5 mt-0.5">
