@@ -24,7 +24,7 @@ const MatrixBackground: React.FC = () => {
         left: (i / 50) * 100,
         duration: 5 + Math.random() * 10,
         delay: Math.random() * -15,
-        opacity: 0.08 + Math.random() * 0.15,
+        opacity: 0.15 + Math.random() * 0.3,
         fontSize: 10 + Math.floor(Math.random() * 4),
         chars,
       });
@@ -244,9 +244,8 @@ const PricingPage: React.FC = () => {
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[#010800]" />
         <MatrixBackground />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#020a02] via-[#020a02]/80 to-[#020a02]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#020a02_70%)]" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-15 brightness-100 contrast-150 mix-blend-overlay" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020a02]/60 via-transparent to-[#020a02]/60" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 brightness-100 contrast-150 mix-blend-overlay" />
       </div>
 
       {/* Navbar */}

@@ -49,9 +49,9 @@ const MatrixRain: React.FC = () => {
   );
 };
 
-// --- BLACK HOLE CURSOR ---
-const BlackHoleCursor: React.FC = () => {
-  const [pos, setPos] = useState({ x: -200, y: -200 });
+// --- NEON CURSOR ---
+const NeonCursor: React.FC = () => {
+  const [pos, setPos] = useState({ x: -50, y: -50 });
 
   useEffect(() => {
     const handler = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
@@ -60,38 +60,12 @@ const BlackHoleCursor: React.FC = () => {
   }, []);
 
   return (
-    <>
-      <svg className="fixed" width="0" height="0" style={{ position: 'absolute' }}>
-        <defs>
-          <filter id="blackhole-distort">
-            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="2" result="turbulence">
-              <animate attributeName="seed" from="0" to="100" dur="6s" repeatCount="indefinite" />
-            </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="30" xChannelSelector="R" yChannelSelector="G" />
-            <feGaussianBlur stdDeviation="1.5" />
-          </filter>
-        </defs>
-      </svg>
-      <div
-        className="fixed pointer-events-none z-[9999] rounded-full"
-        style={{
-          left: pos.x - 30,
-          top: pos.y - 30,
-          width: 60,
-          height: 60,
-          backdropFilter: 'url(#blackhole-distort)',
-          WebkitBackdropFilter: 'url(#blackhole-distort)',
-        }}
-      >
-        <div
-          className="absolute inset-0 rounded-full"
-          style={{
-            background: 'radial-gradient(circle, transparent 25%, rgba(0,255,65,0.07) 50%, transparent 75%)',
-            animation: 'blackhole-spin 4s linear infinite',
-          }}
-        />
-      </div>
-    </>
+    <div
+      className="fixed pointer-events-none z-[9999]"
+      style={{ left: pos.x - 6, top: pos.y - 6 }}
+    >
+      <div className="w-3 h-3 rounded-full bg-green-400 shadow-[0_0_8px_rgba(0,255,65,0.9),0_0_20px_rgba(0,255,65,0.4),0_0_40px_rgba(0,255,65,0.15)]" />
+    </div>
   );
 };
 
@@ -292,7 +266,7 @@ const NeonCube: React.FC = () => {
 const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#020a02] text-white selection:bg-green-500/30 overflow-x-hidden font-sans flex flex-col">
-      <BlackHoleCursor />
+      <NeonCursor />
 
       {/* Effets d'arrière-plan */}
       <div className="fixed inset-0 z-0 pointer-events-none">
@@ -459,7 +433,6 @@ const LandingPage: React.FC = () => {
         .scanlines { background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 65, 0.03) 2px, rgba(0, 255, 65, 0.03) 4px); }
         @keyframes matrix-fall { 0% { transform: translateY(-100%); } 100% { transform: translateY(calc(100vh + 100%)); } }
         .matrix-column { animation: matrix-fall linear infinite; }
-        @keyframes blackhole-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
       `,
         }}
       />
