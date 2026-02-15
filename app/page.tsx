@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import Image from 'next/image';
-import { ChevronRight, Lock, ExternalLink } from 'lucide-react';
+import { ChevronRight, Lock, ExternalLink, Wifi, Activity } from 'lucide-react';
 
 // --- COMPOSANT MATRIX RAIN ---
 const MatrixRain: React.FC = () => {
@@ -45,6 +45,105 @@ const MatrixRain: React.FC = () => {
           ))}
         </div>
       ))}
+    </div>
+  );
+};
+
+// --- BLACK HOLE CURSOR ---
+const BlackHoleCursor: React.FC = () => {
+  const [pos, setPos] = useState({ x: -100, y: -100 });
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
+    window.addEventListener('mousemove', handler);
+    return () => window.removeEventListener('mousemove', handler);
+  }, []);
+
+  return (
+    <div
+      className="fixed pointer-events-none z-[9999]"
+      style={{
+        left: pos.x - 60,
+        top: pos.y - 60,
+        width: 120,
+        height: 120,
+        background: 'radial-gradient(circle, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 30%, rgba(0,255,65,0.05) 50%, transparent 70%)',
+        borderRadius: '50%',
+        filter: 'blur(1px)',
+        mixBlendMode: 'multiply',
+      }}
+    >
+      <div
+        className="absolute inset-0 rounded-full"
+        style={{
+          background: 'radial-gradient(circle, transparent 20%, transparent 40%, rgba(0,255,65,0.08) 50%, transparent 60%)',
+          animation: 'blackhole-spin 3s linear infinite',
+        }}
+      />
+    </div>
+  );
+};
+
+// --- SYSTEM STATUS POPUP ---
+const networks = [
+  { name: 'ETH Mainnet', icon: '⟠', color: 'text-blue-400', ping: '12ms' },
+  { name: 'MegaETH Mainnet', icon: '⚡', color: 'text-yellow-400', ping: '8ms' },
+  { name: 'Base Mainnet', icon: '🔵', color: 'text-blue-300', ping: '15ms' },
+  { name: 'Abstract Mainnet', icon: '◆', color: 'text-purple-400', ping: '11ms' },
+];
+
+const SystemStatus: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  return (
+    <div className="relative" ref={ref}>
+      <button
+        onClick={() => setOpen(!open)}
+        className="bg-green-500/10 hover:bg-green-500/20 border border-green-500/30 text-green-400 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all flex items-center gap-2"
+      >
+        <span className="relative flex h-2 w-2">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+          <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+        </span>
+        System Online
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-12 w-72 bg-[#0a120a]/95 backdrop-blur-xl border border-green-500/20 rounded-xl p-4 shadow-[0_0_30px_rgba(0,255,65,0.1)] animate-fade-in-up z-50">
+          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-green-500/10">
+            <Activity size={14} className="text-green-400" />
+            <span className="text-xs font-bold text-white uppercase tracking-wider">Network Status</span>
+            <span className="ml-auto text-[10px] text-green-400 font-mono">ALL OPERATIONAL</span>
+          </div>
+          <div className="space-y-3">
+            {networks.map((net, i) => (
+              <div key={i} className="flex items-center gap-3">
+                <span className="text-sm">{net.icon}</span>
+                <div className="flex-1">
+                  <div className="text-xs font-medium text-white">{net.name}</div>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
+                    <span className="text-[10px] text-green-400 font-mono">Operational</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Wifi size={10} className="text-green-400/60" />
+                  <span className="text-[10px] text-gray-500 font-mono">{net.ping}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -97,7 +196,6 @@ const NeonCube: React.FC = () => {
     idleAngle.current = rotation.y;
   }, [rotation.y]);
 
-  // Idle animation when not dragging
   useEffect(() => {
     if (isDragging) return;
     let lastTime = performance.now();
@@ -146,13 +244,14 @@ const NeonCube: React.FC = () => {
 const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#020a02] text-white selection:bg-green-500/30 overflow-x-hidden font-sans flex flex-col">
+      <BlackHoleCursor />
+
       {/* Effets d'arrière-plan */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-green-600/8 rounded-full blur-[120px] mix-blend-screen" />
         <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-cyan-600/8 rounded-full blur-[100px] mix-blend-screen" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#0a1f0a_1px,transparent_1px),linear-gradient(to_bottom,#0a1f0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-25" />
-        {/* Scanlines */}
         <div className="absolute inset-0 scanlines opacity-[0.03]" />
       </div>
 
@@ -160,41 +259,31 @@ const LandingPage: React.FC = () => {
       <nav className="fixed top-0 w-full z-50 border-b border-green-500/10 bg-[#020a02]/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/logo.png"
-              alt="NFTPulse Logo"
-              width={32}
-              height={32}
-              className="rounded-md"
-            />
+            <Image src="/logo.png" alt="NFTPulse Logo" width={32} height={32} className="rounded-md" />
             <span className="font-bold text-xl tracking-tight text-white">NFTPULSE</span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500">
-            <Link href="/features" className="hover:text-green-400 transition-colors">
-              Features
-            </Link>
-            <Link href="/roadmap" className="hover:text-green-400 transition-colors">
-              Roadmap
-            </Link>
-            <Link href="/pricing" className="hover:text-green-400 transition-colors">
-              Pricing
+            <Link href="/features" className="hover:text-green-400 transition-colors">Features</Link>
+            <Link href="/roadmap" className="hover:text-green-400 transition-colors">Roadmap</Link>
+            <Link href="/pricing" className="hover:text-green-400 transition-colors">Pricing</Link>
+          </div>
+          <div className="flex items-center gap-3">
+            <SystemStatus />
+            <Link
+              href="https://nftpulse-app.xyz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-green-500 hover:bg-green-400 text-black px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(0,255,65,0.3)] hover:shadow-[0_0_30px_rgba(0,255,65,0.5)]"
+            >
+              Launch App <ExternalLink size={14} />
             </Link>
           </div>
-          <Link
-            href="https://nftpulse-app.xyz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-green-500 hover:bg-green-400 text-black px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(0,255,65,0.3)] hover:shadow-[0_0_30px_rgba(0,255,65,0.5)]"
-          >
-            Launch App <ExternalLink size={14} />
-          </Link>
         </div>
       </nav>
 
       {/* Section Héro */}
       <section className="relative z-10 pt-32 pb-10 px-6 max-w-7xl mx-auto flex-1 flex flex-col justify-center">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Contenu Gauche */}
           <div className="space-y-8 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-950/50 border border-green-500/30 text-green-400 text-xs font-medium uppercase tracking-widest mb-4">
               <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
@@ -232,10 +321,8 @@ const LandingPage: React.FC = () => {
                 Join Discord
               </Link>
             </div>
-
           </div>
 
-          {/* Contenu Droite (Cube interactif) */}
           <div
             className="relative flex items-center justify-center h-[500px] perspective-1000 animate-fade-in-up"
             style={{ animationDelay: '200ms' }}
@@ -248,10 +335,8 @@ const LandingPage: React.FC = () => {
 
       {/* Section Accès Privé - Matrix Rain Background */}
       <section className="relative z-10 py-24 border-t border-green-500/10 overflow-hidden">
-        {/* Matrix rain background */}
         <div className="absolute inset-0 bg-[#010800]" />
         <MatrixRain />
-        {/* Gradient overlays for readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#020a02] via-transparent to-[#020a02]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.4)_0%,transparent_70%)]" />
 
@@ -263,10 +348,8 @@ const LandingPage: React.FC = () => {
           <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
             NFTPulse is currently in <strong className="text-white">Closed Beta</strong>. Access is merit-based: earned by
             active contribution in our Discord or via application.
-            <br />
-            <br />
-            <span className="text-green-400 font-semibold">Genesis Pass (Lifetime Access)</span> mint
-            coming soon for V1 launch.
+            <br /><br />
+            <span className="text-green-400 font-semibold">Genesis Pass (Lifetime Access)</span> mint coming soon for V1 launch.
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
             <Link
@@ -294,30 +377,13 @@ const LandingPage: React.FC = () => {
       <footer className="relative z-10 border-t border-green-500/10 bg-[#020a02] py-12 px-6 mt-auto">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2">
-            <Image
-              src="/logo.png"
-              alt="NFTPulse Logo"
-              width={24}
-              height={24}
-              className="rounded-md"
-            />
+            <Image src="/logo.png" alt="NFTPulse Logo" width={24} height={24} className="rounded-md" />
             <span className="font-bold tracking-tight text-gray-400">NFTPULSE SYSTEM</span>
           </div>
           <div className="flex gap-8 text-sm text-gray-600">
-            <Link href="#" className="hover:text-green-400 transition-colors">
-              Documentation
-            </Link>
-            <Link
-              href="https://x.com/_nftpulse_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-green-400 transition-colors"
-            >
-              Twitter
-            </Link>
-            <Link href="/terms" className="hover:text-green-400 transition-colors">
-              Terms
-            </Link>
+            <Link href="#" className="hover:text-green-400 transition-colors">Documentation</Link>
+            <Link href="https://x.com/_nftpulse_" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors">Twitter</Link>
+            <Link href="/terms" className="hover:text-green-400 transition-colors">Terms</Link>
           </div>
           <div className="text-xs text-gray-700 font-mono">
             SYSTEM STATUS: <span className="text-green-400">OPERATIONAL</span>
@@ -342,22 +408,10 @@ const LandingPage: React.FC = () => {
         .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
         @keyframes gradient-x { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
         .animate-gradient-x { background-size: 200% 200%; animation: gradient-x 3s ease infinite; }
-        .scanlines {
-          background: repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(0, 255, 65, 0.03) 2px,
-            rgba(0, 255, 65, 0.03) 4px
-          );
-        }
-        @keyframes matrix-fall {
-          0% { transform: translateY(-100%); }
-          100% { transform: translateY(calc(100vh + 100%)); }
-        }
-        .matrix-column {
-          animation: matrix-fall linear infinite;
-        }
+        .scanlines { background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 65, 0.03) 2px, rgba(0, 255, 65, 0.03) 4px); }
+        @keyframes matrix-fall { 0% { transform: translateY(-100%); } 100% { transform: translateY(calc(100vh + 100%)); } }
+        .matrix-column { animation: matrix-fall linear infinite; }
+        @keyframes blackhole-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
       `,
         }}
       />
