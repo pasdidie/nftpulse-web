@@ -64,20 +64,21 @@ const BlackHoleCursor: React.FC = () => {
       <svg className="fixed" width="0" height="0" style={{ position: 'absolute' }}>
         <defs>
           <filter id="blackhole-distort">
-            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" seed="2" result="turbulence">
-              <animate attributeName="seed" from="0" to="100" dur="8s" repeatCount="indefinite" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="4" seed="2" result="turbulence">
+              <animate attributeName="seed" from="0" to="100" dur="6s" repeatCount="indefinite" />
             </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="18" xChannelSelector="R" yChannelSelector="G" />
+            <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="30" xChannelSelector="R" yChannelSelector="G" />
+            <feGaussianBlur stdDeviation="1.5" />
           </filter>
         </defs>
       </svg>
       <div
         className="fixed pointer-events-none z-[9999] rounded-full"
         style={{
-          left: pos.x - 50,
-          top: pos.y - 50,
-          width: 100,
-          height: 100,
+          left: pos.x - 30,
+          top: pos.y - 30,
+          width: 60,
+          height: 60,
           backdropFilter: 'url(#blackhole-distort)',
           WebkitBackdropFilter: 'url(#blackhole-distort)',
         }}
@@ -85,15 +86,8 @@ const BlackHoleCursor: React.FC = () => {
         <div
           className="absolute inset-0 rounded-full"
           style={{
-            background: 'radial-gradient(circle, transparent 30%, rgba(0,255,65,0.06) 55%, rgba(0,255,65,0.03) 70%, transparent 80%)',
+            background: 'radial-gradient(circle, transparent 25%, rgba(0,255,65,0.07) 50%, transparent 75%)',
             animation: 'blackhole-spin 4s linear infinite',
-          }}
-        />
-        <div
-          className="absolute inset-2 rounded-full"
-          style={{
-            border: '1px solid rgba(0,255,65,0.08)',
-            animation: 'blackhole-spin 6s linear infinite reverse',
           }}
         />
       </div>
@@ -115,9 +109,12 @@ const EthLogo = () => (
 
 const MegaEthLogo = () => (
   <svg width="18" height="18" viewBox="0 0 100 100" fill="none">
-    <circle cx="50" cy="50" r="48" stroke="#FF6B35" strokeWidth="4"/>
-    <path d="M35 65L50 20L65 65L50 50Z" fill="#FF6B35"/>
-    <path d="M50 50L35 65H65Z" fill="#FFB088"/>
+    <circle cx="50" cy="50" r="48" fill="#2D2D2D"/>
+    <circle cx="50" cy="50" r="38" stroke="white" strokeWidth="4" fill="none"/>
+    <text x="50" y="48" textAnchor="middle" fill="white" fontSize="28" fontWeight="bold" fontFamily="Arial">M</text>
+    <circle cx="40" cy="62" r="4" fill="white"/>
+    <circle cx="50" cy="66" r="4" fill="white"/>
+    <circle cx="60" cy="62" r="4" fill="white"/>
   </svg>
 );
 
@@ -130,9 +127,8 @@ const BaseLogo = () => (
 
 const AbstractLogo = () => (
   <svg width="18" height="18" viewBox="0 0 100 100" fill="none">
-    <rect x="4" y="4" width="92" height="92" rx="20" stroke="#8B5CF6" strokeWidth="6"/>
-    <circle cx="38" cy="50" r="12" fill="#8B5CF6"/>
-    <circle cx="62" cy="50" r="12" stroke="#8B5CF6" strokeWidth="5" fill="none"/>
+    <rect width="100" height="100" rx="18" fill="#1CD45E"/>
+    <path d="M50 22C50 22 38 34 38 34L28 52L38 48L44 56L50 78L56 56L62 48L72 52L62 34C62 34 50 22 50 22Z" fill="white" fillOpacity="0.9"/>
   </svg>
 );
 

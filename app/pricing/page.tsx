@@ -69,9 +69,12 @@ const EthLogo = () => (
 
 const MegaEthLogo = () => (
   <svg width="18" height="18" viewBox="0 0 100 100" fill="none">
-    <circle cx="50" cy="50" r="48" stroke="#FF6B35" strokeWidth="4"/>
-    <path d="M35 65L50 20L65 65L50 50Z" fill="#FF6B35"/>
-    <path d="M50 50L35 65H65Z" fill="#FFB088"/>
+    <circle cx="50" cy="50" r="48" fill="#2D2D2D"/>
+    <circle cx="50" cy="50" r="38" stroke="white" strokeWidth="4" fill="none"/>
+    <text x="50" y="48" textAnchor="middle" fill="white" fontSize="28" fontWeight="bold" fontFamily="Arial">M</text>
+    <circle cx="40" cy="62" r="4" fill="white"/>
+    <circle cx="50" cy="66" r="4" fill="white"/>
+    <circle cx="60" cy="62" r="4" fill="white"/>
   </svg>
 );
 
@@ -84,9 +87,8 @@ const BaseLogo = () => (
 
 const AbstractLogo = () => (
   <svg width="18" height="18" viewBox="0 0 100 100" fill="none">
-    <rect x="4" y="4" width="92" height="92" rx="20" stroke="#8B5CF6" strokeWidth="6"/>
-    <circle cx="38" cy="50" r="12" fill="#8B5CF6"/>
-    <circle cx="62" cy="50" r="12" stroke="#8B5CF6" strokeWidth="5" fill="none"/>
+    <rect width="100" height="100" rx="18" fill="#1CD45E"/>
+    <path d="M50 22C50 22 38 34 38 34L28 52L38 48L44 56L50 78L56 56L62 48L72 52L62 34C62 34 50 22 50 22Z" fill="white" fillOpacity="0.9"/>
   </svg>
 );
 
