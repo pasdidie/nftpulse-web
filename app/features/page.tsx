@@ -81,7 +81,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setOpacity(1)}
       onMouseLeave={() => setOpacity(0)}
-      className={`relative overflow-hidden rounded-2xl border border-white/8 bg-[#060d06]/80 backdrop-blur-xl p-8 group transition-all duration-500 animate-fade-in-up opacity-0 ${c.border}`}
+      className={`relative overflow-hidden rounded-2xl border border-white/8 bg-[#060d06]/80 backdrop-blur-xl p-8 group transition-all duration-500 animate-fade-in-up opacity-0 flex-shrink-0 w-[340px] md:w-[380px] snap-center ${c.border}`}
       style={{ animationDelay: `${delay}ms`, animationFillMode: 'forwards' }}
     >
       <div
@@ -171,8 +171,8 @@ const FeaturesPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Feature Grid - 2x2 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Feature Cards - Horizontal scroll */}
+        <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
           {/* DASHBOARD */}
           <FeatureCard
             title="Dashboard"
@@ -277,6 +277,11 @@ const FeaturesPage: React.FC = () => {
           </FeatureCard>
         </div>
 
+        {/* Scroll hint */}
+        <div className="text-center mt-4 mb-8">
+          <span className="text-xs text-gray-600 font-mono animate-pulse">← Scroll to explore →</span>
+        </div>
+
         {/* CTA */}
         <div className="mt-16 text-center animate-fade-in-up opacity-0" style={{ animationDelay: '600ms', animationFillMode: 'forwards' }}>
           <Link
@@ -313,6 +318,7 @@ const FeaturesPage: React.FC = () => {
           __html: `
         @keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
       `,
         }}
       />

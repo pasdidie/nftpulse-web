@@ -171,7 +171,7 @@ const PhaseCard: React.FC<{ data: PhaseData; index: number }> = ({ data, index }
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+      className={`flex-shrink-0 w-[320px] md:w-[350px] snap-center transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
       style={{ transitionDelay: `${index * 120}ms` }}
     >
       <div className={`relative h-full rounded-2xl border bg-[#060d06]/80 backdrop-blur-xl p-6 transition-all duration-500 hover:scale-[1.02] group ${s.border}`}>
@@ -402,44 +402,16 @@ const RoadmapPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Progress bar */}
-        <div className="max-w-3xl mx-auto mb-12 hidden md:block">
-          <div className="flex items-center gap-0">
-            {phases.map((p, i) => (
-              <React.Fragment key={i}>
-                <div className="flex flex-col items-center gap-2">
-                  <div className={`w-4 h-4 rounded-full ${
-                    p.status === 'live' ? 'bg-green-400 shadow-[0_0_12px_rgba(0,255,65,0.7)]' :
-                    p.status === 'next' ? 'bg-cyan-400 shadow-[0_0_10px_rgba(0,200,220,0.5)]' :
-                    'bg-gray-700'
-                  } relative`}>
-                    {p.status === 'live' && <div className="absolute inset-0 rounded-full bg-green-400/30 animate-ping" />}
-                  </div>
-                  <span className={`text-[10px] font-mono ${
-                    p.status === 'live' ? 'text-green-400' :
-                    p.status === 'next' ? 'text-cyan-400' :
-                    'text-gray-600'
-                  }`}>{p.phase}</span>
-                </div>
-                {i < phases.length - 1 && (
-                  <div className="flex-1 h-px relative mx-1">
-                    <div className={`h-full ${
-                      p.status === 'live' && phases[i + 1].status === 'next' ? 'bg-gradient-to-r from-green-500/60 to-cyan-500/30' :
-                      p.status === 'live' ? 'bg-green-500/40' :
-                      'bg-white/8'
-                    }`} />
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-
-        {/* 2x2 Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Horizontal scroll */}
+        <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
           {phases.map((phase, i) => (
             <PhaseCard key={i} data={phase} index={i} />
           ))}
+        </div>
+
+        {/* Scroll hint */}
+        <div className="text-center mt-4">
+          <span className="text-xs text-gray-600 font-mono animate-pulse">← Scroll to explore →</span>
         </div>
       </div>
 
