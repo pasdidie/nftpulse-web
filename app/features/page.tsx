@@ -19,6 +19,7 @@ import {
   Lock,
   Sparkles,
 } from 'lucide-react';
+import Carousel from '../components/Carousel';
 
 // --- LINK ---
 const Link = ({
@@ -171,8 +172,8 @@ const FeaturesPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Feature Cards - Horizontal scroll */}
-        <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
+        {/* Feature Cards - Carousel */}
+        <Carousel>
           {/* DASHBOARD */}
           <FeatureCard
             title="Dashboard"
@@ -275,12 +276,7 @@ const FeaturesPage: React.FC = () => {
               <Pill icon={Gift} label="Exclusive drops" />
             </div>
           </FeatureCard>
-        </div>
-
-        {/* Scroll hint */}
-        <div className="text-center mt-4 mb-8">
-          <span className="text-xs text-gray-600 font-mono animate-pulse">← Scroll to explore →</span>
-        </div>
+        </Carousel>
 
         {/* CTA */}
         <div className="mt-16 text-center animate-fade-in-up opacity-0" style={{ animationDelay: '600ms', animationFillMode: 'forwards' }}>
@@ -312,16 +308,6 @@ const FeaturesPage: React.FC = () => {
           </div>
         </div>
       </footer>
-
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        @keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-      `,
-        }}
-      />
     </div>
   );
 };

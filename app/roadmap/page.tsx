@@ -19,6 +19,7 @@ import {
   Link2,
   CircleDollarSign,
 } from 'lucide-react';
+import Carousel from '../components/Carousel';
 
 const Link = ({
   href,
@@ -402,17 +403,12 @@ const RoadmapPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Horizontal scroll */}
-        <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none' }}>
+        {/* Phase Cards - Carousel */}
+        <Carousel>
           {phases.map((phase, i) => (
             <PhaseCard key={i} data={phase} index={i} />
           ))}
-        </div>
-
-        {/* Scroll hint */}
-        <div className="text-center mt-4">
-          <span className="text-xs text-gray-600 font-mono animate-pulse">← Scroll to explore →</span>
-        </div>
+        </Carousel>
       </div>
 
       {/* Footer */}
@@ -432,28 +428,6 @@ const RoadmapPage: React.FC = () => {
           </div>
         </div>
       </footer>
-
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        @keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
-        @keyframes particle-float {
-          0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
-          10% { opacity: 0.6; }
-          90% { opacity: 0.6; }
-          50% { transform: translateY(-20px) translateX(10px); }
-        }
-        .particle-float { animation: particle-float 4s ease-in-out infinite; }
-        @keyframes shimmer {
-          0% { opacity: 0.3; }
-          50% { opacity: 0.6; }
-          100% { opacity: 0.3; }
-        }
-        .shimmer { animation: shimmer 2s ease-in-out infinite; }
-      `,
-        }}
-      />
     </div>
   );
 };

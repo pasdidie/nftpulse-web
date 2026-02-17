@@ -2,9 +2,9 @@
 
 import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
 import Image from 'next/image';
-import { ChevronRight, Lock, ExternalLink, Wifi, Activity } from 'lucide-react';
+import { ChevronRight, Lock, ExternalLink, Wifi, Activity, Zap, Shield, Layers } from 'lucide-react';
 
-// --- COMPOSANT MATRIX RAIN ---
+// --- MATRIX RAIN ---
 const MatrixRain: React.FC = () => {
   const columns = useMemo(() => {
     const cols = [];
@@ -45,26 +45,6 @@ const MatrixRain: React.FC = () => {
           ))}
         </div>
       ))}
-    </div>
-  );
-};
-
-// --- NEON CURSOR ---
-const NeonCursor: React.FC = () => {
-  const [pos, setPos] = useState({ x: -50, y: -50 });
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
-    window.addEventListener('mousemove', handler);
-    return () => window.removeEventListener('mousemove', handler);
-  }, []);
-
-  return (
-    <div
-      className="fixed pointer-events-none z-[9999]"
-      style={{ left: pos.x - 6, top: pos.y - 6 }}
-    >
-      <div className="w-3 h-3 rounded-full bg-green-400 shadow-[0_0_8px_rgba(0,255,65,0.9),0_0_20px_rgba(0,255,65,0.4),0_0_40px_rgba(0,255,65,0.15)]" />
     </div>
   );
 };
@@ -170,24 +150,21 @@ const SystemStatus: React.FC = () => {
   );
 };
 
-// --- INTERFACE TYPESCRIPT ---
-type CustomLinkProps = {
+// --- LINK ---
+const Link = ({ href, children, className, onClick, target, rel }: {
   href: string;
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
   target?: string;
   rel?: string;
-};
-
-// --- COMPOSANT LINK ---
-const Link = ({ href, children, className, onClick, target, rel }: CustomLinkProps) => (
+}) => (
   <a href={href} className={className} onClick={onClick} target={target} rel={rel}>
     {children}
   </a>
 );
 
-// --- COMPOSANT CUBE 3D INTERACTIF ---
+// --- NEON CUBE ---
 const NeonCube: React.FC = () => {
   const faces = ['front', 'back', 'right', 'left', 'top', 'bottom'] as const;
   const [rotation, setRotation] = useState({ x: -20, y: 30 });
@@ -234,7 +211,7 @@ const NeonCube: React.FC = () => {
 
   return (
     <div
-      className="cube-container w-64 h-64 relative perspective-1000 cursor-grab active:cursor-grabbing select-none"
+      className="cube-container w-64 h-64 relative perspective-1000 select-none"
       onMouseDown={e => handleStart(e.clientX, e.clientY)}
       onMouseMove={e => handleMove(e.clientX, e.clientY)}
       onMouseUp={handleEnd}
@@ -250,7 +227,7 @@ const NeonCube: React.FC = () => {
         {faces.map((face) => (
           <div
             key={face}
-            className={`absolute w-full h-full border border-green-400/60 bg-green-950/10 backdrop-blur-sm box-shadow-neon flex items-center justify-center transform-style-3d face-${face}`}
+            className={`absolute w-full h-full border border-green-400/60 bg-green-950/10 backdrop-blur-sm box-shadow-neon flex items-center justify-center face-${face}`}
           >
             <div className="w-16 h-16 border border-cyan-400/40 rounded-full animate-pulse relative">
               <div className="absolute inset-0 bg-green-500/20 blur-xl rounded-full" />
@@ -262,22 +239,38 @@ const NeonCube: React.FC = () => {
   );
 };
 
-// --- PAGE PRINCIPALE ---
+// --- STAT CARD ---
+const StatCard = ({ icon: Icon, value, label }: {
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  value: string;
+  label: string;
+}) => (
+  <div className="flex items-center gap-4 px-6 py-4 rounded-xl bg-white/[0.03] border border-green-500/10 backdrop-blur-sm group hover:border-green-500/30 transition-all">
+    <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center group-hover:bg-green-500/15 transition-colors">
+      <Icon size={20} className="text-green-400" />
+    </div>
+    <div>
+      <div className="text-xl font-bold text-white font-mono">{value}</div>
+      <div className="text-xs text-gray-500 uppercase tracking-wider">{label}</div>
+    </div>
+  </div>
+);
+
+// --- PAGE ---
 const LandingPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#020a02] text-white selection:bg-green-500/30 overflow-x-hidden font-sans flex flex-col">
-      <NeonCursor />
 
-      {/* Effets d'arrière-plan */}
+      {/* Background */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-green-600/8 rounded-full blur-[120px] mix-blend-screen" />
-        <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-cyan-600/8 rounded-full blur-[100px] mix-blend-screen" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0a1f0a_1px,transparent_1px),linear-gradient(to_bottom,#0a1f0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-25" />
-        <div className="absolute inset-0 scanlines opacity-[0.03]" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-15 brightness-100 contrast-150 mix-blend-overlay" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-green-600/6 rounded-full blur-[150px] mix-blend-screen" />
+        <div className="absolute bottom-0 right-0 w-[800px] h-[600px] bg-cyan-600/5 rounded-full blur-[120px] mix-blend-screen" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0a1f0a_1px,transparent_1px),linear-gradient(to_bottom,#0a1f0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20" />
+        <div className="absolute inset-0 scanlines opacity-[0.02]" />
       </div>
 
-      {/* Barre de navigation */}
+      {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 border-b border-green-500/10 bg-[#020a02]/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
@@ -303,34 +296,39 @@ const LandingPage: React.FC = () => {
         </div>
       </nav>
 
-      {/* Section Héro */}
-      <section className="relative z-10 pt-32 pb-10 px-6 max-w-7xl mx-auto flex-1 flex flex-col justify-center">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Hero Section */}
+      <section className="relative z-10 pt-28 pb-8 px-6 max-w-7xl mx-auto flex-1 flex flex-col justify-center min-h-screen">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left: Text */}
           <div className="space-y-8 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-950/50 border border-green-500/30 text-green-400 text-xs font-medium uppercase tracking-widest mb-4">
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/25 text-green-400 text-xs font-semibold uppercase tracking-widest">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+              </span>
               Beta Access Live
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight">
-              DOMINATE THE <br />
+            <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9]">
+              DOMINATE<br />
+              THE{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-cyan-400 to-emerald-300 animate-gradient-x">
                 MEMPOOL
               </span>
             </h1>
 
-            <p className="text-lg text-gray-500 max-w-xl leading-relaxed">
+            <p className="text-lg md:text-xl text-gray-400 max-w-lg leading-relaxed">
               The fastest automated minting infrastructure. Zero latency.
               Institutional-grade security. Stop competing. Start dominating.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 pt-4">
+            <div className="flex flex-wrap items-center gap-4">
               <Link
                 href="/features"
-                className="group relative px-8 py-4 bg-green-500 text-black font-bold rounded-lg overflow-hidden transition-all hover:scale-105 shadow-[0_0_25px_rgba(0,255,65,0.2)]"
+                className="group relative px-8 py-4 bg-green-500 text-black font-bold rounded-xl overflow-hidden transition-all hover:scale-105 shadow-[0_0_30px_rgba(0,255,65,0.25)]"
               >
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                <span className="relative flex items-center gap-2">
+                <span className="relative flex items-center gap-2 text-sm">
                   Explore Modules <ChevronRight size={18} />
                 </span>
               </Link>
@@ -338,59 +336,75 @@ const LandingPage: React.FC = () => {
                 href="https://discord.gg/N24YgTBx3V"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-transparent border border-green-500/20 text-green-400 font-medium rounded-lg hover:bg-green-500/5 hover:border-green-500/40 transition-all"
+                className="px-8 py-4 border border-green-500/20 text-green-400 font-semibold rounded-xl hover:bg-green-500/5 hover:border-green-500/40 transition-all text-sm"
               >
                 Join Discord
               </Link>
             </div>
           </div>
 
+          {/* Right: Cube */}
           <div
-            className="relative flex items-center justify-center h-[500px] perspective-1000 animate-fade-in-up"
+            className="relative flex items-center justify-center h-[450px] lg:h-[550px] perspective-1000 animate-fade-in-up"
             style={{ animationDelay: '200ms' }}
           >
-            <div className="absolute inset-0 bg-green-500/8 blur-[100px] rounded-full" />
+            <div className="absolute w-[400px] h-[400px] bg-green-500/8 blur-[120px] rounded-full" />
+            <div className="absolute w-[200px] h-[200px] bg-cyan-500/6 blur-[80px] rounded-full translate-x-16 -translate-y-8" />
             <NeonCube />
           </div>
         </div>
+
+        {/* Stats Strip */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+          <StatCard icon={Layers} value="4 Chains" label="EVM Networks Supported" />
+          <StatCard icon={Zap} value="< 10ms" label="Average Latency" />
+          <StatCard icon={Shield} value="Multi-Wallet" label="Simultaneous Minting" />
+        </div>
       </section>
 
-      {/* Section Accès Privé - Matrix Rain Background */}
-      <section className="relative z-10 py-24 border-t border-green-500/10 overflow-hidden">
+      {/* Private Beta Section */}
+      <section className="relative z-10 py-28 overflow-hidden">
         <div className="absolute inset-0 bg-[#010800]" />
         <MatrixRain />
         <div className="absolute inset-0 bg-gradient-to-b from-[#020a02] via-transparent to-[#020a02]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.4)_0%,transparent_70%)]" />
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center px-6">
-          <div className="w-20 h-20 mx-auto bg-gradient-to-tr from-cyan-600 to-green-500 rounded-2xl rotate-3 mb-8 flex items-center justify-center shadow-[0_0_50px_rgba(0,255,65,0.3)]">
-            <Lock className="text-black" size={40} />
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Private Beta Access</h2>
-          <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-            NFTPulse is currently in <strong className="text-white">Closed Beta</strong>. Access is merit-based: earned by
-            active contribution in our Discord or via application.
-            <br /><br />
-            <span className="text-green-400 font-semibold">Genesis Pass (Lifetime Access)</span> mint coming soon for V1 launch.
-          </p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <Link
-              href="https://discord.gg/N24YgTBx3V"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-lg font-bold transition-all w-full md:w-auto justify-center shadow-lg shadow-indigo-900/20"
-            >
-              Join Discord &amp; Earn Role
-            </Link>
-            <span className="text-gray-600 font-mono text-sm">OR</span>
-            <Link
-              href="https://docs.google.com/forms/d/e/1FAIpQLSfrpClyknpxqbPI4ismMCzc9IHbyrwvdN10CM5pon_RSFQW_g/viewform?usp=sharing&ouid=118074420697624704159"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 px-8 py-4 bg-white/5 hover:bg-green-500/10 border border-green-500/20 text-white rounded-lg font-bold transition-all w-full md:w-auto justify-center"
-            >
-              Apply for Beta
-            </Link>
+        <div className="relative z-10 max-w-3xl mx-auto px-6">
+          <div className="rounded-2xl border border-green-500/15 bg-[#060d06]/60 backdrop-blur-xl p-10 md:p-14 text-center shadow-[0_0_60px_rgba(0,255,65,0.05)]">
+            <div className="w-16 h-16 mx-auto bg-gradient-to-tr from-cyan-600 to-green-500 rounded-2xl rotate-3 mb-8 flex items-center justify-center shadow-[0_0_40px_rgba(0,255,65,0.25)]">
+              <Lock className="text-black" size={32} />
+            </div>
+
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">Private Beta Access</h2>
+
+            <p className="text-gray-400 text-base md:text-lg mb-4 max-w-xl mx-auto leading-relaxed">
+              NFTPulse is currently in <strong className="text-white">Closed Beta</strong>. Access is merit-based: earned by
+              active contribution in our Discord or via application.
+            </p>
+
+            <p className="text-green-400 font-semibold text-sm mb-10">
+              Genesis Pass (Lifetime Access) mint coming soon for V1 launch.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="https://discord.gg/N24YgTBx3V"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white rounded-xl font-bold transition-all w-full sm:w-auto justify-center shadow-lg shadow-indigo-900/20 text-sm"
+              >
+                Join Discord &amp; Earn Role
+              </Link>
+              <span className="text-gray-600 font-mono text-xs">OR</span>
+              <Link
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfrpClyknpxqbPI4ismMCzc9IHbyrwvdN10CM5pon_RSFQW_g/viewform?usp=sharing&ouid=118074420697624704159"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-8 py-4 bg-white/5 hover:bg-green-500/10 border border-green-500/20 text-white rounded-xl font-bold transition-all w-full sm:w-auto justify-center text-sm"
+              >
+                Apply for Beta
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -412,30 +426,6 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </footer>
-
-      {/* Styles CSS */}
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-        .perspective-1000 { perspective: 1000px; }
-        .preserve-3d { transform-style: preserve-3d; }
-        .face-front  { transform: rotateY(0deg) translateZ(8rem); }
-        .face-right  { transform: rotateY(90deg) translateZ(8rem); }
-        .face-back   { transform: rotateY(180deg) translateZ(8rem); }
-        .face-left   { transform: rotateY(-90deg) translateZ(8rem); }
-        .face-top    { transform: rotateX(90deg) translateZ(8rem); }
-        .face-bottom { transform: rotateX(-90deg) translateZ(8rem); }
-        .box-shadow-neon { box-shadow: 0 0 15px rgba(0, 255, 65, 0.25), inset 0 0 15px rgba(0, 255, 65, 0.08); }
-        @keyframes fade-in-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
-        @keyframes gradient-x { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-        .animate-gradient-x { background-size: 200% 200%; animation: gradient-x 3s ease infinite; }
-        .scanlines { background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 65, 0.03) 2px, rgba(0, 255, 65, 0.03) 4px); }
-        @keyframes matrix-fall { 0% { transform: translateY(-100%); } 100% { transform: translateY(calc(100vh + 100%)); } }
-        .matrix-column { animation: matrix-fall linear infinite; }
-      `,
-        }}
-      />
     </div>
   );
 };
