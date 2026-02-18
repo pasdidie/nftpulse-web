@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #020a02;
+  --foreground: #ededed;
+  --green-neon: #00ff41;
+  --cyan-accent: #00c8dc;
 }
 
 @theme inline {
@@ -10,13 +12,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
@@ -32,6 +27,13 @@ body {
   }
 }
 
+/* Focus rings for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--green-neon);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 /* Scrollbar hide utility */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { scrollbar-width: none; }
@@ -39,13 +41,13 @@ body {
 /* 3D Cube */
 .perspective-1000 { perspective: 1000px; }
 .preserve-3d { transform-style: preserve-3d; }
-.face-front  { transform: rotateY(0deg) translateZ(8rem); }
-.face-right  { transform: rotateY(90deg) translateZ(8rem); }
-.face-back   { transform: rotateY(180deg) translateZ(8rem); }
-.face-left   { transform: rotateY(-90deg) translateZ(8rem); }
-.face-top    { transform: rotateX(90deg) translateZ(8rem); }
-.face-bottom { transform: rotateX(-90deg) translateZ(8rem); }
-.box-shadow-neon { box-shadow: 0 0 15px rgba(0, 255, 65, 0.25), inset 0 0 15px rgba(0, 255, 65, 0.08); }
+.face-front  { transform: rotateY(0deg) translateZ(7rem); }
+.face-right  { transform: rotateY(90deg) translateZ(7rem); }
+.face-back   { transform: rotateY(180deg) translateZ(7rem); }
+.face-left   { transform: rotateY(-90deg) translateZ(7rem); }
+.face-top    { transform: rotateX(90deg) translateZ(7rem); }
+.face-bottom { transform: rotateX(-90deg) translateZ(7rem); }
+.box-shadow-neon { box-shadow: 0 0 12px rgba(0, 255, 65, 0.2), inset 0 0 12px rgba(0, 255, 65, 0.06); }
 
 /* Scanlines */
 .scanlines {
@@ -53,23 +55,54 @@ body {
     0deg,
     transparent,
     transparent 2px,
-    rgba(0, 255, 65, 0.03) 2px,
-    rgba(0, 255, 65, 0.03) 4px
+    rgba(0, 255, 65, 0.015) 2px,
+    rgba(0, 255, 65, 0.015) 4px
   );
+}
+
+/* Gradient mesh background */
+.bg-mesh {
+  background:
+    radial-gradient(ellipse at 15% 30%, rgba(0, 255, 65, 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 20%, rgba(0, 200, 220, 0.05) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 80%, rgba(0, 255, 65, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(0, 200, 220, 0.03) 0%, transparent 40%),
+    #020a02;
 }
 
 /* Keyframes */
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.animate-fade-in-up { animation: fade-in-up 0.8s ease-out forwards; }
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fade-in-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-32px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-in-left {
+  opacity: 0;
+  animation: slide-in-left 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-in-right {
+  opacity: 0;
+  animation: slide-in-right 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 
 @keyframes gradient-x {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
-.animate-gradient-x { background-size: 200% 200%; animation: gradient-x 3s ease infinite; }
+.animate-gradient-x { background-size: 200% 200%; animation: gradient-x 4s ease infinite; }
 
 @keyframes matrix-fall {
   0% { transform: translateY(-100%); }
@@ -97,3 +130,9 @@ body {
   50% { opacity: 1; }
 }
 .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float { animation: float 3s ease-in-out infinite; }
