@@ -1,60 +1,13 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import { ExternalLink } from 'lucide-react';
-
-interface CustomLinkProps {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-  target?: string;
-  rel?: string;
-}
-
-const Link = ({ href, children, className, target, rel }: CustomLinkProps) => (
-  <a href={href} className={className} target={target} rel={rel}>
-    {children}
-  </a>
-);
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-[#020a02] text-white selection:bg-green-500/30 overflow-x-hidden font-sans flex flex-col">
-      {/* NAVBAR */}
-      <nav className="fixed top-0 w-full z-50 border-b border-green-500/10 bg-[#020a02]/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/logo.png"
-              alt="NFTPulse Logo"
-              width={32}
-              height={32}
-              className="rounded-md"
-            />
-            <span className="font-bold text-xl tracking-tight text-white">NFTPULSE</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500">
-            <Link href="/features" className="hover:text-green-400 transition-colors">
-              Features
-            </Link>
-            <Link href="/roadmap" className="hover:text-green-400 transition-colors">
-              Roadmap
-            </Link>
-            <Link href="/pricing" className="hover:text-green-400 transition-colors">
-              Pricing
-            </Link>
-          </div>
-          <Link
-            href="https://nftpulse-app.xyz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-green-500 hover:bg-green-400 text-black px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(0,255,65,0.3)] hover:shadow-[0_0_30px_rgba(0,255,65,0.5)]"
-          >
-            Launch App <ExternalLink size={14} />
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* TERMS CONTENT */}
       <main className="relative z-10 pt-28 pb-16 px-6 max-w-4xl mx-auto w-full">
@@ -119,40 +72,7 @@ export default function TermsPage() {
         </div>
       </main>
 
-      {/* FOOTER */}
-      <footer className="relative z-10 border-t border-green-500/10 bg-[#020a02] py-12 px-6 mt-auto">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-2">
-            <Image
-              src="/logo.png"
-              alt="NFTPulse Logo"
-              width={24}
-              height={24}
-              className="rounded-md"
-            />
-            <span className="font-bold tracking-tight text-gray-400">NFTPULSE SYSTEM</span>
-          </div>
-          <div className="flex gap-8 text-sm text-gray-600">
-            <Link href="#" className="hover:text-green-400 transition-colors">
-              Documentation
-            </Link>
-            <Link
-              href="https://x.com/_nftpulse_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-green-400 transition-colors"
-            >
-              Twitter
-            </Link>
-            <Link href="/terms" className="hover:text-green-400 transition-colors">
-              Terms
-            </Link>
-          </div>
-          <div className="text-xs text-gray-700 font-mono">
-            SYSTEM STATUS: <span className="text-green-400">OPERATIONAL</span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

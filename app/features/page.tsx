@@ -1,9 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-import Image from 'next/image';
 import {
-  ExternalLink,
   LayoutDashboard,
   Wrench,
   Gift,
@@ -20,25 +18,8 @@ import {
   Sparkles,
 } from 'lucide-react';
 import Carousel from '../components/Carousel';
-
-// --- LINK ---
-const Link = ({
-  href,
-  children,
-  className,
-  target,
-  rel,
-}: {
-  href: string;
-  children: React.ReactNode;
-  className?: string;
-  target?: string;
-  rel?: string;
-}) => (
-  <a href={href} className={className} target={target} rel={rel}>
-    {children}
-  </a>
-);
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 // --- FEATURE CARD WITH MOUSE GLOW ---
 interface FeatureCardProps {
@@ -124,34 +105,7 @@ const FeaturesPage: React.FC = () => {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#0a1f0a_1px,transparent_1px),linear-gradient(to_bottom,#0a1f0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20" />
       </div>
 
-      {/* Navbar */}
-      <nav className="fixed top-0 w-full z-50 border-b border-green-500/10 bg-[#020a02]/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/logo.png" alt="NFTPulse Logo" width={32} height={32} className="rounded-md" />
-            <span className="font-bold text-xl tracking-tight text-white">NFTPULSE</span>
-          </Link>
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500">
-            <Link href="/features" className="text-green-400">
-              Features
-            </Link>
-            <Link href="/roadmap" className="hover:text-green-400 transition-colors">
-              Roadmap
-            </Link>
-            <Link href="/pricing" className="hover:text-green-400 transition-colors">
-              Pricing
-            </Link>
-          </div>
-          <Link
-            href="https://nftpulse-app.xyz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-green-500 hover:bg-green-400 text-black px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(0,255,65,0.3)] hover:shadow-[0_0_30px_rgba(0,255,65,0.5)]"
-          >
-            Launch App <ExternalLink size={14} />
-          </Link>
-        </div>
-      </nav>
+      <Navbar activePage="Features" />
 
       {/* Content */}
       <div className="relative z-10 pt-32 pb-20 px-6 max-w-6xl mx-auto">
@@ -280,34 +234,18 @@ const FeaturesPage: React.FC = () => {
 
         {/* CTA */}
         <div className="mt-16 text-center animate-fade-in-up opacity-0" style={{ animationDelay: '600ms', animationFillMode: 'forwards' }}>
-          <Link
+          <a
             href="https://nftpulse-app.xyz"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-green-500 text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_30px_rgba(0,255,65,0.2)] hover:shadow-[0_0_40px_rgba(0,255,65,0.4)]"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-green-500 text-black font-bold rounded-lg hover:scale-105 transition-all shadow-[0_0_30px_rgba(0,255,65,0.2)] hover:shadow-[0_0_40px_rgba(0,255,65,0.4)] text-sm"
           >
-            Launch App <ExternalLink size={18} />
-          </Link>
+            Launch App
+          </a>
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-green-500/10 bg-[#020a02] py-12 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="NFTPulse Logo" width={24} height={24} className="rounded-md" />
-            <span className="font-bold tracking-tight text-gray-400">NFTPULSE SYSTEM</span>
-          </div>
-          <div className="flex gap-8 text-sm text-gray-600">
-            <Link href="#" className="hover:text-green-400 transition-colors">Documentation</Link>
-            <Link href="https://x.com/_nftpulse_" target="_blank" rel="noopener noreferrer" className="hover:text-green-400 transition-colors">Twitter</Link>
-            <Link href="/terms" className="hover:text-green-400 transition-colors">Terms</Link>
-          </div>
-          <div className="text-xs text-gray-700 font-mono">
-            SYSTEM STATUS: <span className="text-green-400">OPERATIONAL</span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

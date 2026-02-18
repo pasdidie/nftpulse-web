@@ -6,9 +6,6 @@ import {
   ChevronRight,
   ChevronDown,
   Lock,
-  ExternalLink,
-  Wifi,
-  Activity,
   Zap,
   Shield,
   Layers,
@@ -17,10 +14,12 @@ import {
   MousePointerClick,
   KeyRound,
   ShieldCheck,
-  FileText,
   MessageCircle,
+  Activity,
 } from 'lucide-react';
 import Carousel from './components/Carousel';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 /* ============================================================
    HELPERS
@@ -178,75 +177,6 @@ const DiscordIcon = () => (
 );
 
 /* ============================================================
-   SYSTEM STATUS
-   ============================================================ */
-
-const networks = [
-  { name: 'ETH Mainnet', logo: <EthLogo />, ping: '12ms' },
-  { name: 'MegaETH Mainnet', logo: <MegaEthLogo />, ping: '8ms' },
-  { name: 'Base Mainnet', logo: <BaseLogo />, ping: '15ms' },
-  { name: 'Abstract Mainnet', logo: <AbstractLogo />, ping: '11ms' },
-];
-
-const SystemStatus: React.FC = () => {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  }, []);
-
-  return (
-    <div className="relative" ref={ref}>
-      <button
-        onClick={() => setOpen(!open)}
-        className="bg-green-500/8 hover:bg-green-500/15 border border-green-500/20 text-green-400 px-3 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wider transition-all flex items-center gap-2"
-        aria-label="System status — All systems operational"
-        title="All systems operational"
-      >
-        <span className="relative flex h-2 w-2">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
-        </span>
-        <span className="hidden sm:inline">Live</span>
-      </button>
-
-      {open && (
-        <div className="absolute right-0 top-11 w-72 bg-[#0a120a]/95 backdrop-blur-xl border border-green-500/15 rounded-xl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.5)] animate-fade-in-up z-50">
-          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-green-500/10">
-            <Activity size={13} className="text-green-400" />
-            <span className="text-[11px] font-bold text-white uppercase tracking-wider">Network Status</span>
-            <span className="ml-auto text-[10px] text-green-400 font-mono">ALL OPERATIONAL</span>
-          </div>
-          <div className="space-y-2.5">
-            {networks.map((net, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className="w-5 h-5 flex items-center justify-center shrink-0">{net.logo}</div>
-                <div className="flex-1">
-                  <div className="text-[11px] font-medium text-white">{net.name}</div>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                    <span className="text-[10px] text-green-400/80 font-mono">Operational</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Wifi size={10} className="text-green-400/50" />
-                  <span className="text-[10px] text-gray-500 font-mono">{net.ping}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-/* ============================================================
    NEON CUBE (improved with face labels)
    ============================================================ */
 
@@ -401,37 +331,8 @@ const LandingPage: React.FC = () => {
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.07] mix-blend-overlay" />
       </div>
 
-      {/* ── Navbar: Glass sticky ── */}
-      <nav className="fixed top-0 w-full z-50 border-b border-white/[0.06] bg-[#020a02]/70 backdrop-blur-xl" role="navigation" aria-label="Main navigation">
-        <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2" aria-label="NFTPulse Home">
-            <Image src="/logo.png" alt="NFTPulse Logo" width={28} height={28} className="rounded-md" />
-            <span className="font-bold text-lg tracking-tight text-white">NFTPULSE</span>
-          </Link>
-
-          <div className="hidden md:flex items-center gap-7 text-[13px] font-medium text-gray-500">
-            <Link href="#product" className="hover:text-green-400 transition-colors">Product</Link>
-            <Link href="/features" className="hover:text-green-400 transition-colors">Modules</Link>
-            <Link href="#security" className="hover:text-green-400 transition-colors">Security</Link>
-            <Link href="/pricing" className="hover:text-green-400 transition-colors">Pricing</Link>
-            <Link href="#" className="hover:text-green-400 transition-colors flex items-center gap-1">
-              <FileText size={13} /> Docs
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-2.5">
-            <SystemStatus />
-            <Link
-              href="https://nftpulse-app.xyz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-green-500 hover:bg-green-400 text-black px-4 py-1.5 rounded-lg text-[11px] font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-[0_0_16px_rgba(0,255,65,0.2)] hover:shadow-[0_0_24px_rgba(0,255,65,0.35)]"
-            >
-              Launch App <ExternalLink size={12} />
-            </Link>
-          </div>
-        </div>
-      </nav>
+      {/* ── Navbar ── */}
+      <Navbar />
 
       {/* ── Beta Banner (clickable) ── */}
       <div className="fixed top-14 w-full z-40 bg-green-500/8 border-b border-green-500/15 backdrop-blur-sm">
@@ -802,78 +703,8 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ── Premium Footer ── */}
-      <footer className="relative z-10 border-t border-white/[0.06] bg-[#020a02] py-16 px-6" role="contentinfo">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
-            {/* Brand */}
-            <div className="col-span-2 md:col-span-1">
-              <div className="flex items-center gap-2 mb-4">
-                <Image src="/logo.png" alt="NFTPulse Logo" width={24} height={24} className="rounded-md" />
-                <span className="font-bold tracking-tight text-white">NFTPULSE</span>
-              </div>
-              <p className="text-xs text-gray-500 leading-relaxed max-w-xs">
-                Non-custodial minting infrastructure for EVM chains. Built for speed, designed for control.
-              </p>
-            </div>
-
-            {/* Product */}
-            <div>
-              <h4 className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4">Product</h4>
-              <div className="space-y-2.5">
-                <Link href="/features" className="block text-sm text-gray-400 hover:text-green-400 transition-colors">Modules</Link>
-                <Link href="/pricing" className="block text-sm text-gray-400 hover:text-green-400 transition-colors">Pricing</Link>
-                <Link href="/roadmap" className="block text-sm text-gray-400 hover:text-green-400 transition-colors">Roadmap</Link>
-                <Link href="#" className="block text-sm text-gray-400 hover:text-green-400 transition-colors">Changelog</Link>
-              </div>
-            </div>
-
-            {/* Resources */}
-            <div>
-              <h4 className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4">Resources</h4>
-              <div className="space-y-2.5">
-                <Link href="#" className="block text-sm text-gray-400 hover:text-green-400 transition-colors">Documentation</Link>
-                <Link href="#" className="block text-sm text-gray-400 hover:text-green-400 transition-colors">Status Page</Link>
-                <Link href="#security" className="block text-sm text-gray-400 hover:text-green-400 transition-colors">Security</Link>
-                <Link href="#" className="block text-sm text-gray-400 hover:text-green-400 transition-colors">API (soon)</Link>
-              </div>
-            </div>
-
-            {/* Legal + Social */}
-            <div>
-              <h4 className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4">Legal</h4>
-              <div className="space-y-2.5">
-                <Link href="/terms" className="block text-sm text-gray-400 hover:text-green-400 transition-colors">Terms of Service</Link>
-                <Link href="/terms" className="block text-sm text-gray-400 hover:text-green-400 transition-colors">Privacy Policy</Link>
-              </div>
-              <h4 className="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-bold mb-4 mt-6">Social</h4>
-              <div className="flex items-center gap-3">
-                <Link href="https://discord.gg/N24YgTBx3V" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-[#5865F2] transition-colors" aria-label="Discord">
-                  <DiscordIcon />
-                </Link>
-                <Link href="https://x.com/_nftpulse_" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors" aria-label="Twitter / X">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom bar */}
-          <div className="pt-8 border-t border-white/[0.04] flex flex-col md:flex-row items-center justify-between gap-4">
-            <span className="text-[11px] text-gray-600 font-mono">
-              &copy; 2026 NFTPulse. All rights reserved.
-            </span>
-            <div className="flex items-center gap-2 text-[10px] font-mono text-gray-600">
-              SYSTEM STATUS:
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-400" />
-              </span>
-              <span className="text-green-400">OPERATIONAL</span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* ── Footer ── */}
+      <Footer />
     </div>
   );
 };
