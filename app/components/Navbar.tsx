@@ -125,6 +125,7 @@ const navLinks = [
   { label: 'Security', href: '/#security' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Roadmap', href: '/roadmap' },
+  { label: 'Docs', href: '/docs' },
 ];
 
 /* ── Navbar Component ── */

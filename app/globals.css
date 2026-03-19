@@ -136,3 +136,28 @@ body {
   50% { transform: translateY(-8px); }
 }
 .animate-float { animation: float 3s ease-in-out infinite; }
+
+/* Docs prose */
+.prose-docs h1 { font-size: 2.25rem; font-weight: 800; color: white; margin-bottom: 0.75rem; line-height: 1.2; }
+.prose-docs h2 { font-size: 1.5rem; font-weight: 700; color: white; margin-top: 2.5rem; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.prose-docs h3 { font-size: 1.125rem; font-weight: 600; color: white; margin-top: 1.75rem; margin-bottom: 0.5rem; }
+.prose-docs p { color: #a1a1aa; font-size: 0.9375rem; line-height: 1.75; margin-bottom: 1rem; }
+.prose-docs ul, .prose-docs ol { color: #a1a1aa; font-size: 0.9375rem; line-height: 1.75; margin-bottom: 1rem; padding-left: 1.5rem; }
+.prose-docs ul { list-style: disc; }
+.prose-docs ol { list-style: decimal; }
+.prose-docs li { margin-bottom: 0.35rem; }
+.prose-docs strong { color: white; font-weight: 600; }
+.prose-docs a { color: #4ade80; text-decoration: underline; text-underline-offset: 2px; }
+.prose-docs a:hover { color: #86efac; }
+.prose-docs code { background: rgba(255,255,255,0.06); padding: 0.15rem 0.4rem; border-radius: 0.25rem; font-size: 0.85rem; color: #4ade80; font-family: monospace; }
+.prose-docs blockquote { border-left: 3px solid #4ade80; padding-left: 1rem; margin: 1.25rem 0; color: #d4d4d8; font-style: italic; }
+.prose-docs hr { border-color: rgba(255,255,255,0.06); margin: 2rem 0; }
+.prose-docs img { border-radius: 0.75rem; border: 1px solid rgba(255,255,255,0.06); margin: 1.5rem 0; }
+.prose-docs .callout { border-radius: 0.75rem; padding: 1rem 1.25rem; margin: 1.25rem 0; font-size: 0.875rem; line-height: 1.65; }
+.prose-docs .callout-warning { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); color: #fbbf24; }
+.prose-docs .callout-info { background: rgba(0,200,220,0.08); border: 1px solid rgba(0,200,220,0.2); color: #67e8f9; }
+.prose-docs .callout-danger { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: #f87171; }
+.prose-docs .screenshot { border-radius: 0.75rem; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); padding: 0.5rem; margin: 1.5rem 0; }
+.prose-docs .screenshot img { margin: 0; border: none; }
+.prose-docs .screenshot figcaption { text-align: center; font-size: 0.8rem; color: #71717a; margin-top: 0.5rem; }
+.prose-docs .step-number { display: inline-flex; align-items: center; justify-content: center; width: 1.75rem; height: 1.75rem; border-radius: 9999px; background: rgba(74,222,128,0.15); color: #4ade80; font-weight: 700; font-size: 0.8rem; margin-right: 0.5rem; flex-shrink: 0; }
