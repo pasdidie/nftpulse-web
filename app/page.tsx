@@ -480,7 +480,7 @@ const LandingPage: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { icon: Search, title: 'Auto-detect mint config', desc: 'Automatically scans and parses contract ABI, mint price, max supply, and function selectors. No manual setup.', proof: 'ERC-721 / ERC-1155 compatible' },
-              { icon: Wallet, title: 'Multi-wallet orchestration', desc: 'Load and execute across multiple wallets simultaneously. Individual gas settings, unified dashboard.', proof: 'Up to 50 wallets per session' },
+              { icon: Wallet, title: 'Multi-wallet orchestration', desc: 'Load and execute across multiple wallets simultaneously. Individual gas settings, unified dashboard.', proof: 'Up to 10,000 wallets per session' },
               { icon: Zap, title: 'Gas strategy presets', desc: 'Pre-configured gas strategies for different scenarios: snipe, safe, and custom. Real-time gas estimation.', proof: 'Dynamic gas based on network state' },
             ].map((item, i) => (
               <div key={i} className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-7 group hover:border-green-500/20 transition-all">
@@ -546,7 +546,7 @@ const LandingPage: React.FC = () => {
               icon={Wallet}
               title="Wallet Toolbox"
               description="Create, manage, and transfer across wallets. View NFTs, list on marketplaces, bulk operations."
-              metric="50+"
+              metric="10K+"
               metricLabel="wallets per session"
             />
             <FeatureTile
