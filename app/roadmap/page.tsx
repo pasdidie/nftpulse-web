@@ -29,6 +29,7 @@ const MiniTerminal: React.FC = () => {
     { text: 'ETH: online', color: 'text-green-400' },
     { text: 'Base: online', color: 'text-green-400' },
     { text: 'Arbitrum: online', color: 'text-green-400' },
+    { text: 'AnimeChain: online', color: 'text-green-400' },
     { text: 'All systems: OPERATIONAL', color: 'text-green-300 font-bold' },
   ];
   const [visible, setVisible] = useState(0);
@@ -217,7 +218,7 @@ const RoadmapPage: React.FC = () => {
       accent: 'rgba(0,255,65,0.4)',
       icons: [Terminal, Rocket, Shield, Globe],
       items: [
-        'NFTPulse platform live on all EVM chains',
+        'NFTPulse platform live on all EVM chains (incl. AnimeChain)',
         'Discord server & community onboarding active',
         'Beta role distribution (Operators / Testers)',
         'Core app live: Dashboard, Toolbox, Mint engine',

@@ -42,6 +42,13 @@ const AbstractLogo = () => (
   </svg>
 );
 
+const AnimeChainLogo = () => (
+  <svg width="18" height="18" viewBox="0 0 100 100" fill="none" aria-label="AnimeChain">
+    <circle cx="50" cy="50" r="48" fill="#FF4081"/>
+    <path d="M50 20L30 75H40L44 63H56L60 75H70L50 20ZM47 55L50 35L53 55H47Z" fill="white"/>
+  </svg>
+);
+
 /* ── System Status ── */
 
 const networks = [
@@ -49,6 +56,7 @@ const networks = [
   { name: 'MegaETH Mainnet', logo: <MegaEthLogo />, ping: '8ms' },
   { name: 'Base Mainnet', logo: <BaseLogo />, ping: '15ms' },
   { name: 'Abstract Mainnet', logo: <AbstractLogo />, ping: '11ms' },
+  { name: 'AnimeChain Mainnet', logo: <AnimeChainLogo />, ping: '10ms' },
 ];
 
 const SystemStatus: React.FC = () => {
