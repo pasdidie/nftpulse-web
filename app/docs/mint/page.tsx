@@ -107,6 +107,11 @@ export default function MintPage() {
         wallets and fills in the correct mint parameters.
       </p>
 
+      <figure className="screenshot">
+        <Image src="/docs/mint-success.png" alt="Mint results 100/100 success" width={1200} height={400} className="w-full rounded-lg" />
+        <figcaption>All mints successful — 100/100 wallets minted with transaction hashes and explorer links</figcaption>
+      </figure>
+
       <div className="callout callout-info">
         <strong>After minting</strong>, head to <strong>Portfolio</strong> to verify your NFTs arrived,
         or use <strong>Toolbox &rarr; Drain</strong> to collect everything back to your main wallet.

@@ -17,8 +17,8 @@ export default function ToolboxPage() {
       </p>
 
       <figure className="screenshot">
-        <Image src="/docs/toolbox-distribute.png" alt="Toolbox distribute panel" width={1200} height={500} className="w-full rounded-lg" />
-        <figcaption>The Distribute panel — select a wallet group, choose chain, enter mother wallet key and amount per wallet</figcaption>
+        <Image src="/docs/toolbox-distribute-anime.png" alt="Toolbox distribute panel" width={1200} height={500} className="w-full rounded-lg" />
+        <figcaption>Distributing 1 ANIME to 5 wallets on AnimeChain — Total: 5.0000 ANIME</figcaption>
       </figure>
 
       <h3>How to Use</h3>
@@ -70,8 +70,8 @@ export default function ToolboxPage() {
       </p>
 
       <figure className="screenshot">
-        <Image src="/docs/toolbox-drain.png" alt="Toolbox drain panel" width={1200} height={400} className="w-full rounded-lg" />
-        <figcaption>The Drain panel — select group, chain, enter destination, scan balances, then drain all NFTs + native tokens</figcaption>
+        <Image src="/docs/drain-results.png" alt="Drain results showing 50/50 wallets drained" width={1200} height={900} className="w-full rounded-lg" />
+        <figcaption>Drain results — 49.71 ANIME recovered from 50/50 wallets on AnimeChain</figcaption>
       </figure>
 
       <h3>How It Works</h3>
