@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function WalletsPage() {
   return (
     <>
@@ -5,6 +7,7 @@ export default function WalletsPage() {
       <p>
         The Wallets module is where you create, manage, and organize your wallet groups.
         Each group contains individual wallets that can be used for minting and other operations.
+        NFTPulse is compatible with <strong>all EVM chains</strong>.
       </p>
 
       <h2>Wallet Groups</h2>
@@ -12,6 +15,11 @@ export default function WalletsPage() {
         Wallets are organized into <strong>groups</strong>. A group is a collection of wallets
         that you use together for a specific purpose (e.g. one group per mint project).
       </p>
+
+      <figure className="screenshot">
+        <Image src="/docs/wallets-empty.png" alt="Empty wallet groups page" width={1200} height={400} className="w-full rounded-lg" />
+        <figcaption>The Wallets page — click &quot;+ New Group&quot; to create your first group</figcaption>
+      </figure>
 
       <h3>Creating a Group</h3>
       <ol>
@@ -30,6 +38,7 @@ export default function WalletsPage() {
         <li>Wallets are generated locally using cryptographically secure random keys</li>
         <li>Private keys are encrypted with AES-256 before being stored</li>
         <li>Generated wallets are labeled automatically (gen-1, gen-2, etc.)</li>
+        <li>The same wallets work on <strong>every EVM chain</strong> — no need to create separate wallets per chain</li>
       </ul>
 
       <div className="callout callout-warning">
@@ -51,15 +60,13 @@ export default function WalletsPage() {
       <h3>Viewing Balances</h3>
       <p>
         Expand a wallet group to see individual wallets. Use the <strong>chain selector</strong>
-        at the top to check balances on any supported chain. The total balance across all wallets
-        is displayed at the top.
+        to check balances on any supported chain. The total balance across all wallets
+        is displayed at the top of the group card.
       </p>
 
       <figure className="screenshot">
-        <div className="bg-white/[0.03] rounded-lg h-40 flex items-center justify-center text-gray-600 text-sm">
-          Expanded wallet group showing balances per wallet with chain selector
-        </div>
-        <figcaption>Wallet balances on AnimeChain — total and per-wallet breakdown</figcaption>
+        <Image src="/docs/wallets-group.png" alt="Wallet group expanded" width={1200} height={500} className="w-full rounded-lg" />
+        <figcaption>Expanded wallet group — 5 wallets with chain selector (ETH, Base, MegaETH, Abstract, AnimeChain) and per-wallet balances</figcaption>
       </figure>
 
       <h3>Exporting Private Keys</h3>
@@ -74,7 +81,7 @@ export default function WalletsPage() {
       </p>
       <ul>
         <li><strong>Single wallet</strong> — Click the trash icon next to any wallet in the expanded view</li>
-        <li><strong>Entire group</strong> — Click <strong>delete</strong> on the group card. You must type the group name to confirm</li>
+        <li><strong>Entire group</strong> — Click <strong>delete</strong> on the group card. You must type the group name to confirm deletion</li>
       </ul>
 
       <div className="callout callout-danger">

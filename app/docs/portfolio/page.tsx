@@ -4,7 +4,7 @@ export default function PortfolioPage() {
       <h1>Portfolio</h1>
       <p>
         The Portfolio gives you a unified view of all NFTs across every wallet
-        and every supported chain. Track, filter, and manage your collection in one place.
+        and every EVM chain. Track, filter, and manage your entire collection in one place.
       </p>
 
       <h2>Viewing Your NFTs</h2>

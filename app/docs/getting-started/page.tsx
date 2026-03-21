@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function GettingStartedPage() {
   return (
     <>
@@ -14,10 +16,8 @@ export default function GettingStartedPage() {
       </p>
 
       <figure className="screenshot">
-        <div className="bg-white/[0.03] rounded-lg h-48 flex items-center justify-center text-gray-600 text-sm">
-          Login screen — Sign in with Discord button
-        </div>
-        <figcaption>The login page with Discord authentication</figcaption>
+        <Image src="/docs/login.png" alt="NFTPulse login screen" width={1200} height={600} className="w-full rounded-lg" />
+        <figcaption>The login page — authenticate with your Discord account</figcaption>
       </figure>
 
       <h2><span className="step-number">2</span> Create a Wallet Group</h2>
@@ -25,40 +25,48 @@ export default function GettingStartedPage() {
         Navigate to <strong>Wallets</strong> in the top nav. Click <strong>+ New Group</strong> to create
         a wallet group. Give it a descriptive name (e.g. &quot;azuki-mint&quot;, &quot;animechain-farm&quot;).
       </p>
+
+      <figure className="screenshot">
+        <Image src="/docs/wallets-empty.png" alt="Empty wallet groups page" width={1200} height={400} className="w-full rounded-lg" />
+        <figcaption>The Wallets page — click &quot;+ New Group&quot; to get started</figcaption>
+      </figure>
+
       <p>
         Then click <strong>+ Add</strong> on the group card and select <strong>Generate</strong>.
         Enter the number of wallets you want (up to 10,000) and confirm.
       </p>
 
+      <figure className="screenshot">
+        <Image src="/docs/wallets-group.png" alt="Wallet group with 5 wallets" width={1200} height={500} className="w-full rounded-lg" />
+        <figcaption>A wallet group with 5 generated wallets — showing addresses, labels, and balances per chain</figcaption>
+      </figure>
+
       <div className="callout callout-warning">
         <strong>Important:</strong> After generating wallets, click <strong>Export</strong> to save the
-        private keys. This is your only chance to back them up.
+        private keys. This is your only chance to back them up. Losing keys means losing access to those wallets forever.
       </div>
-
-      <figure className="screenshot">
-        <div className="bg-white/[0.03] rounded-lg h-48 flex items-center justify-center text-gray-600 text-sm">
-          Wallet group card with Add / Export / Delete buttons
-        </div>
-        <figcaption>A wallet group showing 100 wallets with balance display</figcaption>
-      </figure>
 
       <h2><span className="step-number">3</span> Fund Your Wallets</h2>
       <p>
         Go to <strong>Toolbox</strong> &rarr; <strong>Distribute</strong> tab. Select your wallet group,
-        choose the chain, paste your <strong>mother wallet private key</strong> (the wallet that holds
+        choose the chain (any EVM chain), paste your <strong>mother wallet private key</strong> (the wallet that holds
         the funds), and set the amount per wallet.
       </p>
+
+      <figure className="screenshot">
+        <Image src="/docs/toolbox-distribute.png" alt="Toolbox distribute panel" width={1200} height={500} className="w-full rounded-lg" />
+        <figcaption>The Distribute panel — select group, chain, enter private key and amount per wallet</figcaption>
+      </figure>
+
       <p>
         Click <strong>DISTRIBUTE</strong>. The bot sends tokens to each wallet sequentially
         with optimized nonce management. For 100 wallets, this takes about 10-15 seconds.
       </p>
 
-      <figure className="screenshot">
-        <div className="bg-white/[0.03] rounded-lg h-48 flex items-center justify-center text-gray-600 text-sm">
-          Distribute panel — chain selector, amount, distribute button
-        </div>
-        <figcaption>Distributing 0.1 ANIME to 100 wallets</figcaption>
-      </figure>
+      <div className="callout callout-info">
+        <strong>Your private key is never stored.</strong> The mother wallet private key is only used
+        in-memory for the operation and discarded immediately after.
+      </div>
 
       <h2><span className="step-number">4</span> Execute a Mint</h2>
       <p>
@@ -66,18 +74,16 @@ export default function GettingStartedPage() {
       </p>
       <ol>
         <li>Select your <strong>wallet group</strong> and <strong>chain</strong></li>
-        <li>Paste the <strong>contract address</strong></li>
-        <li>The bot auto-detects the mint function and parameters</li>
-        <li>Set the <strong>price per unit</strong> and <strong>gas strategy</strong></li>
+        <li>Paste the <strong>contract address</strong> — the bot auto-detects the ABI and mint function</li>
+        <li>Or paste a <strong>transaction hash</strong> in &quot;Load from TX&quot; to auto-fill everything</li>
+        <li>Set the <strong>price per unit</strong> and choose a <strong>gas strategy</strong></li>
         <li>Optionally enable <strong>Smart Retry</strong> to simulate before sending</li>
         <li>Click <strong>MINT ALL</strong></li>
       </ol>
 
       <figure className="screenshot">
-        <div className="bg-white/[0.03] rounded-lg h-48 flex items-center justify-center text-gray-600 text-sm">
-          Mint panel — contract address, function, gas strategy, MINT ALL button
-        </div>
-        <figcaption>Mint configuration with auto-detected contract parameters</figcaption>
+        <Image src="/docs/mint-bot.png" alt="Mint Bot interface" width={1200} height={600} className="w-full rounded-lg" />
+        <figcaption>The Mint Bot — contract address, load from TX, gas strategy (Eco/Normal/Fast/Turbo), Smart Retry toggle, and schedule option</figcaption>
       </figure>
 
       <h2><span className="step-number">5</span> Drain Everything Back</h2>
@@ -85,21 +91,21 @@ export default function GettingStartedPage() {
         After minting, go to <strong>Toolbox</strong> &rarr; <strong>Drain</strong> tab. Select your
         wallet group, chain, and paste your <strong>destination wallet address</strong>.
       </p>
-      <p>
-        Click <strong>Scan Balances</strong> to preview the total, then <strong>DRAIN ALL</strong>.
-        The bot transfers all NFTs and remaining native tokens back to your wallet.
-      </p>
 
       <figure className="screenshot">
-        <div className="bg-white/[0.03] rounded-lg h-48 flex items-center justify-center text-gray-600 text-sm">
-          Drain panel — scan balances, drain all NFTs + tokens
-        </div>
-        <figcaption>Draining NFTs and ANIME tokens back to the main wallet</figcaption>
+        <Image src="/docs/toolbox-drain.png" alt="Toolbox drain panel" width={1200} height={400} className="w-full rounded-lg" />
+        <figcaption>The Drain panel — transfers all NFTs and native tokens from every wallet to your destination</figcaption>
       </figure>
+
+      <p>
+        Click <strong>Scan Balances</strong> to preview the total, then <strong>DRAIN ALL</strong>.
+        The bot detects all NFTs, transfers them via <code>safeTransferFrom</code>, then sweeps
+        remaining native tokens — all in one operation.
+      </p>
 
       <hr />
       <p>
-        That&apos;s it! You&apos;ve just completed a full mint cycle. Check the
+        That&apos;s it! You&apos;ve completed a full mint cycle. Make sure to read the
         <a href="/docs/safety"> Safety & Best Practices</a> page for important security guidelines.
       </p>
     </>
