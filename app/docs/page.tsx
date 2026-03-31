@@ -51,6 +51,7 @@ export default function DocsOverview() {
           { name: 'Base', symbol: 'ETH' },
           { name: 'MegaETH', symbol: 'ETH' },
           { name: 'Abstract', symbol: 'ETH' },
+          { name: 'ApeChain', symbol: 'APE' },
           { name: 'AnimeChain', symbol: 'ANIME' },
         ].map((chain) => (
           <div key={chain.name} className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
@@ -64,7 +65,7 @@ export default function DocsOverview() {
       </div>
       <p>
         Any other EVM-compatible chain can be used — Polygon, Arbitrum, Optimism, Avalanche, BNB Chain,
-        Blast, Zora, ApeChain, Sei, Berachain, and more are supported in the portfolio and can be added
+        Blast, Zora, Sei, Berachain, and more are supported in the portfolio and can be added
         to the mint/toolbox modules.
       </p>
 

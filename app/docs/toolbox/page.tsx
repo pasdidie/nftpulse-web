@@ -38,7 +38,7 @@ export default function ToolboxPage() {
       <h3>Tips</h3>
       <ul>
         <li>Calculate the total needed: <code>amount_per_wallet x number_of_wallets</code> + a bit extra for gas</li>
-        <li>On L2s (Base, AnimeChain, Abstract, MegaETH), gas is very cheap — 0.001 ETH per wallet is usually enough for a mint + drain</li>
+        <li>On L2s (Base, ApeChain, AnimeChain, Abstract, MegaETH), gas is very cheap — 0.001 ETH per wallet is usually enough for a mint + drain</li>
         <li>The mother wallet private key is <strong>never stored</strong> — only used in-memory for the operation</li>
       </ul>
 

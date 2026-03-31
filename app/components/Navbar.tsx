@@ -49,6 +49,13 @@ const AnimeChainLogo = () => (
   </svg>
 );
 
+const ApeChainLogo = () => (
+  <svg width="18" height="18" viewBox="0 0 100 100" fill="none" aria-label="ApeChain">
+    <circle cx="50" cy="50" r="48" fill="#0054FA"/>
+    <path d="M50 18C33.4 18 20 31.4 20 48c0 12.2 7.3 22.7 17.8 27.4L42 62c-4.5-3.2-7.5-8.4-7.5-14.3 0-9.7 7.8-17.5 17.5-17.5s17.5 7.8 17.5 17.5c0 5.9-3 11.1-7.5 14.3l4.2 13.4C76.7 70.7 84 60.2 84 48c0-16.6-13.4-30-34-30z" fill="white"/>
+  </svg>
+);
+
 /* ── System Status ── */
 
 const networks = [
@@ -56,6 +63,7 @@ const networks = [
   { name: 'MegaETH Mainnet', logo: <MegaEthLogo />, ping: '8ms' },
   { name: 'Base Mainnet', logo: <BaseLogo />, ping: '15ms' },
   { name: 'Abstract Mainnet', logo: <AbstractLogo />, ping: '11ms' },
+  { name: 'ApeChain Mainnet', logo: <ApeChainLogo />, ping: '9ms' },
   { name: 'AnimeChain Mainnet', logo: <AnimeChainLogo />, ping: '10ms' },
 ];
 

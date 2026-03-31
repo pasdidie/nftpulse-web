@@ -12,7 +12,7 @@ export default function PortfolioPage() {
         Navigate to <strong>Portfolio</strong> in the top menu. Your NFTs load in two phases:
       </p>
       <ol>
-        <li><strong>Phase 1 (instant)</strong> — Loads NFTs from Ethereum, Base, and AnimeChain</li>
+        <li><strong>Phase 1 (instant)</strong> — Loads NFTs from Ethereum, Base, ApeChain, and AnimeChain</li>
         <li><strong>Phase 2 (background)</strong> — Loads remaining chains (Polygon, Arbitrum, Optimism, etc.)</li>
       </ol>
       <p>

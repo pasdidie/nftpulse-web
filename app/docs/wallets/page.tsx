@@ -66,7 +66,7 @@ export default function WalletsPage() {
 
       <figure className="screenshot">
         <Image src="/docs/wallets-group.png" alt="Wallet group expanded" width={1200} height={500} className="w-full rounded-lg" />
-        <figcaption>Expanded wallet group — 5 wallets with chain selector (ETH, Base, MegaETH, Abstract, AnimeChain) and per-wallet balances</figcaption>
+        <figcaption>Expanded wallet group — 5 wallets with chain selector (ETH, Base, MegaETH, Abstract, ApeChain, AnimeChain) and per-wallet balances</figcaption>
       </figure>
 
       <h3>Exporting Private Keys</h3>

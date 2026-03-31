@@ -52,7 +52,7 @@ export default function SafetyPage() {
       <h2>Gas Management</h2>
       <ul>
         <li>NFTPulse works on <strong>all EVM chains</strong> — gas costs vary greatly between L1 (Ethereum) and L2s</li>
-        <li>On L2 chains (Base, AnimeChain, Abstract, MegaETH), gas is very cheap — a small amount goes a long way</li>
+        <li>On L2 chains (Base, ApeChain, AnimeChain, Abstract, MegaETH), gas is very cheap — a small amount goes a long way</li>
         <li>Use the <strong>Eco</strong> gas strategy for non-competitive mints</li>
         <li>Use <strong>Fast</strong> or <strong>Turbo</strong> only for competitive public mints</li>
         <li>The Mint Engine auto-estimates gas — only override if you know what you&apos;re doing</li>
